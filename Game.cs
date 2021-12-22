@@ -11,7 +11,7 @@ namespace FinalBattle
     {
         int _turn = 0;
         int _round = 0;
-        bool _gameOver = false;
+        public bool _gameOver = false;
 
         Party goodGuys = new Party(PlayerType.Human, "Heroes", 1);
         Party badGuys = new Party(PlayerType.Computer, "Monsters", 1);
@@ -29,6 +29,9 @@ namespace FinalBattle
                         if (goodGuys._playerType == PlayerType.Computer) goodGuys.characters[i].ComputerAction(goodGuys, badGuys);
                         else goodGuys.characters[i].PlayerAction(goodGuys, badGuys);
 
+                        // check if action eliminated enemy team
+                        IsGameOver(goodGuys, badGuys);
+                        if (_gameOver) break;
                         Console.WriteLine();
                         Thread.Sleep(500);
                         _turn++;
@@ -41,6 +44,9 @@ namespace FinalBattle
                         if (badGuys._playerType == PlayerType.Computer) badGuys.characters[i].ComputerAction(badGuys, goodGuys);
                         else badGuys.characters[i].PlayerAction(badGuys, goodGuys);
 
+                        // check if action eliminated enemy team
+                        IsGameOver(badGuys, goodGuys);
+                        if (_gameOver) break;
                         Console.WriteLine();
                         Thread.Sleep(500);
                         _turn++;
@@ -55,6 +61,19 @@ namespace FinalBattle
         {
             if (turn % 2 == 0) return "Heroes";
             else return "Monsters";
+        }
+
+        public void IsGameOver(Party freinds, Party enemy)
+        {
+            if (goodGuys.characters.Count == 0 || badGuys.characters.Count == 0)
+            {
+                _gameOver = true;
+                Console.WriteLine();
+                Console.WriteLine($"{freinds._name} won the game!");
+            }
+            else _gameOver = false;
+
+            
         }
     }
 

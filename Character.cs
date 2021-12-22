@@ -10,18 +10,23 @@ namespace FinalBattle
     public class Character
     {
         public string _name { private set; get; }
-        public int _health { private set; get; }
+        public int _maxHealth { private set; get; }
+        public int _currentHealth { private set; get; }
 
+        // right now, only the True Programmer is using this constructor
         public Character(string name)
         {
             _name = name;
-            _health = 100;
+            _maxHealth = 25;
+            _currentHealth = 25;
         }
 
+        // paramaterless constructor creates Skeleton characters
         public Character()
         {
             _name = "SKELETON";
-            _health = 100;
+            _maxHealth = 5;
+            _currentHealth = 5;
         }
 
         /// <summary>
@@ -93,6 +98,7 @@ namespace FinalBattle
         public void ChooseAttack(Party friends, Party enemies)
         {
             AttackType attackType;
+
             if (friends._playerType == PlayerType.Computer)
             {
                 //Console.WriteLine("1 - Bone Crunch");
@@ -102,7 +108,8 @@ namespace FinalBattle
                 {
                     case 1:
                         attackType = AttackType.BoneCrunch;
-                        Console.WriteLine($"{_name} used Bone Crunch on {enemies.characters[0]._name}");
+                        DealHitDamage(friends, enemies, attackType);
+                        
                         break;
                 }
             }
@@ -113,18 +120,77 @@ namespace FinalBattle
                 Console.WriteLine("Choose your attack: ");
                 Console.WriteLine("1 - Punch");
                 int choice = Convert.ToInt32(Console.ReadLine());
-                
+
                 switch (choice)
                 {
                     case 1:
                         attackType = AttackType.Punch;
-                        // need to allow user to pick a player to attack
-                        Console.WriteLine($"{_name} used PUNCH on {enemies.characters[0]._name}");
+                        DealHitDamage(friends, enemies, attackType);
                         break;
                 }
             }
         }
+
+        /// <summary>
+        /// Deals hit damage to characters, removes them if their current HP is 0
+        /// </summary>
+        /// <param name="friends"></param>
+        /// <param name="enemies"></param>
+        public void DealHitDamage(Party friends, Party enemies, AttackType attackType)
+        {
+            int hitDamage;
+
+            if (attackType == AttackType.BoneCrunch)
+            {
+                // hit damage for bone crunch needs to randomly be 0 or 1
+                Random random = new Random();
+                hitDamage = random.Next(2);
+
+                Console.WriteLine($"{_name} used Bone Crunch on {enemies.characters[0]._name}");
+
+                // health cannot go below 0, if an attack does the same or more damage than a character has HP
+                // then we set that character's HP to 0 and remove them from the game.
+                if (enemies.characters[0]._currentHealth - hitDamage <= 0)
+                {
+                    enemies.characters[0]._currentHealth = 0;
+                    enemies.characters.Remove(enemies.characters[0]);
+                }
+                else enemies.characters[0]._currentHealth -= hitDamage;
+
+                Console.WriteLine($"The attack dealt {hitDamage} damage to {enemies.characters[0]._name}");
+                // for testing, will remove this
+                Console.WriteLine($"{enemies.characters[0]._name} is now at: {enemies.characters[0]._currentHealth}/{enemies.characters[0]._maxHealth}");
+
+                if (enemies.characters[0]._currentHealth == 0) RemoveCharacterFromParty(enemies, enemies.characters[0]);
+            }
+
+            else if (attackType == AttackType.Punch)
+            {
+                // need to allow user to pick a player to attack
+                hitDamage = 5;
+                Console.WriteLine($"{_name} used PUNCH on {enemies.characters[0]._name}");
+
+                if (enemies.characters[0]._currentHealth - hitDamage <= 0)
+                {
+                    enemies.characters[0]._currentHealth = 0;
+                }
+                else enemies.characters[0]._currentHealth -= hitDamage;
+
+                Console.WriteLine($"The attack dealt {hitDamage} damage to {enemies.characters[0]._name}.");
+                Console.WriteLine($"{enemies.characters[0]._name} is now at {enemies.characters[0]._currentHealth}/{enemies.characters[0]._maxHealth}");
+
+                if (enemies.characters[0]._currentHealth == 0) RemoveCharacterFromParty(enemies, enemies.characters[0]);
+            }
+        }
+
+        public void RemoveCharacterFromParty(Party enemies, Character character)
+        {
+            enemies.characters.Remove(character);
+            Console.WriteLine($"You have killed {character._name}");
+        }
     }
+
+    
 
    
 
