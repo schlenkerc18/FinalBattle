@@ -30,7 +30,7 @@ namespace FinalBattle
                         else goodGuys.characters[i].PlayerAction(goodGuys, badGuys);
 
                         // check if action eliminated enemy team
-                        IsGameOver(goodGuys, badGuys);
+                        IsGameOver();
                         if (_gameOver) break;
                         Console.WriteLine();
                         Thread.Sleep(500);
@@ -45,7 +45,7 @@ namespace FinalBattle
                         else badGuys.characters[i].PlayerAction(badGuys, goodGuys);
 
                         // check if action eliminated enemy team
-                        IsGameOver(badGuys, goodGuys);
+                        IsGameOver();
                         if (_gameOver) break;
                         Console.WriteLine();
                         Thread.Sleep(500);
@@ -63,13 +63,15 @@ namespace FinalBattle
             else return "Monsters";
         }
 
-        public void IsGameOver(Party freinds, Party enemy)
+        public void IsGameOver()
         {
             if (goodGuys.characters.Count == 0 || badGuys.characters.Count == 0)
             {
                 _gameOver = true;
                 Console.WriteLine();
-                Console.WriteLine($"{freinds._name} won the game!");
+                if (goodGuys.characters.Count == 0)
+                    Console.WriteLine("The Heroes have lost and the Uncoded One's forces have prevailed.");
+                else Console.WriteLine("The Heroes have won! The Uncoded One has been defeated!");
             }
             else _gameOver = false;
 
