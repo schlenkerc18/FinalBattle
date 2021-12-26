@@ -16,6 +16,11 @@ namespace FinalBattle
         Party goodGuys = new Party(PlayerType.Human, "Heroes", 1);
         Party badGuys = new Party(PlayerType.Computer, "Monsters", 1);
 
+        /// <summary>
+        /// This function currently runs the turn logic for each game.  
+        /// Heroes attack first, then the bad guys attack.
+        /// After each attack, we check to see if the game is over.
+        /// </summary>
         public void RunGame()
         {
             while (!_gameOver)
@@ -57,6 +62,12 @@ namespace FinalBattle
             }
             
         }
+
+        /// <summary>
+        /// String representation of player's turn
+        /// </summary>
+        /// <param name="turn"></param>
+        /// <returns></returns>
         public string GetTurn(int turn)
         {
             if (turn % 2 == 0) return "Heroes";

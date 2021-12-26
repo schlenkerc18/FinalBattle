@@ -7,6 +7,11 @@ using System.Threading;
 
 namespace FinalBattle
 {
+
+    // TODO: I think we want to create an inheritance heirarchy here.
+    // Might be a good idea to have a character class, and then a Skeleton,
+    // TrueProgrammer and UncodedOne classes that inherit from the Character classs
+
     public class Character
     {
         public string _name { private set; get; }
@@ -153,7 +158,6 @@ namespace FinalBattle
                 if (enemies.characters[0]._currentHealth - hitDamage <= 0)
                 {
                     enemies.characters[0]._currentHealth = 0;
-                    enemies.characters.Remove(enemies.characters[0]);
                 }
                 else enemies.characters[0]._currentHealth -= hitDamage;
 
