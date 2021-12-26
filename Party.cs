@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FinalBattle.Characters;
 
 namespace FinalBattle
 {
@@ -29,11 +30,10 @@ namespace FinalBattle
         public void AddCharacters(int numberOfCharacters)
         {
             // currently just adding skeletons
-            // TODO: Let the player choose what type of characters to add
             for (int i = 0; i < numberOfCharacters; i++)
             {
-                Character character = new Character();
-                characters.Add(character);
+                Skeleton skeleton = new Skeleton();
+                characters.Add(skeleton);
             }
         }
 
@@ -41,8 +41,8 @@ namespace FinalBattle
         {
             Console.Write("What name do you want to use for your character?: ");
             string name = Console.ReadLine();
-            Character character = new Character(name);
-            characters.Add(character);
+            TrueProgrammer trueProgrammer = new TrueProgrammer(name);
+            characters.Add(trueProgrammer);
         }
     }
 }

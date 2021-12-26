@@ -14,25 +14,9 @@ namespace FinalBattle
 
     public class Character
     {
-        public string _name { private set; get; }
-        public int _maxHealth { private set; get; }
-        public int _currentHealth { private set; get; }
-
-        // right now, only the True Programmer is using this constructor
-        public Character(string name)
-        {
-            _name = name;
-            _maxHealth = 25;
-            _currentHealth = 25;
-        }
-
-        // paramaterless constructor creates Skeleton characters
-        public Character()
-        {
-            _name = "SKELETON";
-            _maxHealth = 5;
-            _currentHealth = 5;
-        }
+        public string _name { set; get; }
+        public int _maxHealth { set; get; }
+        public int _currentHealth { set; get; }
 
         /// <summary>
         /// Allows player to choose action
