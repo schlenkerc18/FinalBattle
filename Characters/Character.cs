@@ -98,11 +98,12 @@ namespace FinalBattle
                 {
                     case 1:
                         attackType = AttackType.BoneCrunch;
+                        Console.WriteLine($"{_name} used Bone Crunch on {enemies.characters[0]._name}");
                         DealHitDamage(friends, enemies, attackType);
-                        
                         break;
                     case 2:
                         attackType = AttackType.Unraveling;
+                        Console.WriteLine($"{_name} used Unraveling on {enemies.characters[0]._name}");
                         DealHitDamage(friends, enemies, attackType);
                         break;
                 }
@@ -119,6 +120,7 @@ namespace FinalBattle
                 {
                     case 1:
                         attackType = AttackType.Punch;
+                        Console.WriteLine($"{_name} used PUNCH on {enemies.characters[0]._name}");
                         DealHitDamage(friends, enemies, attackType);
                         break;
                 }
@@ -132,75 +134,33 @@ namespace FinalBattle
         /// <param name="enemies"></param>
         public void DealHitDamage(Party friends, Party enemies, AttackType attackType)
         {
-            int hitDamage;
+            int hitDamage = 0;
+            Random random = new Random();
 
-            if (attackType == AttackType.BoneCrunch)
+            hitDamage = (attackType) switch
             {
-                // hit damage for bone crunch needs to randomly be 0 or 1
-                Random random = new Random();
-                hitDamage = random.Next(2);
+                AttackType.BoneCrunch => random.Next(2),
+                AttackType.Unraveling => random.Next(3),
+                AttackType.Punch => 1
+            };
 
-                Console.WriteLine($"{_name} used Bone Crunch on {enemies.characters[0]._name}");
-
-                // health cannot go below 0, if an attack does the same or more damage than a character has HP
-                // then we set that character's HP to 0 and remove them from the game.
-                if (enemies.characters[0]._currentHealth - hitDamage <= 0)
-                {
-                    enemies.characters[0]._currentHealth = 0;
-                }
-                else enemies.characters[0]._currentHealth -= hitDamage;
-
-                Console.WriteLine($"The attack dealt {hitDamage} damage to {enemies.characters[0]._name}");
-                Console.WriteLine($"{enemies.characters[0]._name} is now at: {enemies.characters[0]._currentHealth}/{enemies.characters[0]._maxHealth}");
-
-                if (enemies.characters[0]._currentHealth == 0) RemoveCharacterFromParty(enemies, enemies.characters[0]);
-            }
-
-            else if (attackType == AttackType.Unraveling)
+            if (enemies.characters[0]._currentHealth - hitDamage <= 0)
             {
-                // hit damage for Unraveling needs to randomly deal between 0 and 2 damage
-                Random random = new Random();
-                hitDamage = random.Next(3);
-
-                Console.WriteLine($"{_name} used Unraveling on {enemies.characters[0]._name}");
-
-                // health cannot go below 0, if an attack does the same or more damage than a character has HP
-                // then we set that character's HP to 0 and remove them from the game.
-                if (enemies.characters[0]._currentHealth - hitDamage <= 0)
-                {
-                    enemies.characters[0]._currentHealth = 0;
-                }
-                else enemies.characters[0]._currentHealth -= hitDamage;
-
-                Console.WriteLine($"The attack dealt {hitDamage} damage to {enemies.characters[0]._name}");
-                Console.WriteLine($"{enemies.characters[0]._name} is now at: {enemies.characters[0]._currentHealth}/{enemies.characters[0]._maxHealth}");
-
-                if (enemies.characters[0]._currentHealth == 0) RemoveCharacterFromParty(enemies, enemies.characters[0]);
+                enemies.characters[0]._currentHealth = 0;
             }
+            else enemies.characters[0]._currentHealth -= hitDamage;
 
-            else if (attackType == AttackType.Punch)
-            {
-                // need to allow user to pick a player to attack
-                hitDamage = 1;
-                Console.WriteLine($"{_name} used PUNCH on {enemies.characters[0]._name}");
+            Console.WriteLine($"The attack dealt {hitDamage} damage to {enemies.characters[0]._name}.");
+            Console.WriteLine($"{enemies.characters[0]._name} is now at {enemies.characters[0]._currentHealth}/{enemies.characters[0]._maxHealth}");
 
-                if (enemies.characters[0]._currentHealth - hitDamage <= 0)
-                {
-                    enemies.characters[0]._currentHealth = 0;
-                }
-                else enemies.characters[0]._currentHealth -= hitDamage;
-
-                Console.WriteLine($"The attack dealt {hitDamage} damage to {enemies.characters[0]._name}.");
-                Console.WriteLine($"{enemies.characters[0]._name} is now at {enemies.characters[0]._currentHealth}/{enemies.characters[0]._maxHealth}");
-
-                if (enemies.characters[0]._currentHealth == 0) RemoveCharacterFromParty(enemies, enemies.characters[0]);
-            }
+            if (enemies.characters[0]._currentHealth == 0) RemoveCharacterFromParty(friends, enemies, enemies.characters[0]);
         }
 
-        public void RemoveCharacterFromParty(Party enemies, Character character)
+        public void RemoveCharacterFromParty(Party friends, Party enemies, Character character)
         {
             enemies.characters.Remove(character);
-            Console.WriteLine($"You have killed {character._name}");
+            Console.WriteLine();
+            Console.WriteLine($"{friends.characters[0]._name} killed {character._name}");
         }
     }
 
