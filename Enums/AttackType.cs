@@ -7,5 +7,6 @@ using System.Threading.Tasks;
 public enum AttackType
 {
     Punch,
-    BoneCrunch
+    BoneCrunch,
+    Unraveling
 }

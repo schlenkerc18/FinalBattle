@@ -24,6 +24,12 @@ namespace FinalBattle
                 AddCharacters(charactersToAdd - 1);
             }
 
+            else if (name == "The Uncoded One")
+            {
+                UncodedOne uncodedOne = new UncodedOne();
+                characters.Add(uncodedOne);
+            }
+
             else AddCharacters(charactersToAdd);
         }
 

@@ -28,12 +28,24 @@ namespace FinalBattle
             {
                 if (_round == 2)
                 {
-                    Party badGuys = new Party(PlayerType.Computer, "Monsters", 2);
+                    // second round consists of 2 Skeleton characters
+                    Console.WriteLine("You have advanced to Round 2!");
+                    Console.WriteLine();
+
+                    badGuys = new Party(PlayerType.Computer, "Monsters", 2);
+                    //Console.WriteLine("Creating new bad guys");
+                    //Console.WriteLine($"badGuys: {badGuys.characters.Count}");
                 }
-                //else if (_round == 3)
-                //{
-                  
-                //}
+
+                if (_round == 3)
+                {
+
+                    // third round consists of the Uncoded One
+                    Console.WriteLine("You have advanced to the Final Round! Get ready to fight the Uncoded One!");
+                    Console.WriteLine();
+
+                    badGuys = new Party(PlayerType.Computer, "The Uncoded One", 1);
+                }
 
                 Round(_round, badGuys);
                 _round++;
@@ -43,39 +55,49 @@ namespace FinalBattle
 
         public void Round(int round, Party badGuys)
         {
-            for (int i = 0; i < goodGuys.characters.Count; i++)
+            int playerTurn = 0;
+
+            while (!_roundOver)
             {
                 if (GetTurn(_turn) == "Heroes")
                 {
-                    Console.WriteLine($"It is {goodGuys.characters[i]._name}'s turn.");
+                    // Console.WriteLine($"Bad guys left: {badGuys.characters.Count}");
+                    Console.WriteLine($"It is {goodGuys.characters[playerTurn]._name}'s turn.");
 
-                    if (goodGuys._playerType == PlayerType.Computer) goodGuys.characters[i].ComputerAction(goodGuys, badGuys);
-                    else goodGuys.characters[i].PlayerAction(goodGuys, badGuys);
+                    if (goodGuys._playerType == PlayerType.Computer) goodGuys.characters[playerTurn].ComputerAction(goodGuys, badGuys);
+                    else goodGuys.characters[playerTurn].PlayerAction(goodGuys, badGuys);
 
+                    // increment turn before checking if round is over
+                    _turn++;
                     // check if action eliminated enemy team
                     IsRoundOver(goodGuys, badGuys);
                     if (_roundOver) break;
                     Console.WriteLine();
                     Thread.Sleep(500);
-                    _turn++;
+                    
                 }
 
                 if (GetTurn(_turn) == "Monsters")
                 {
-                    Console.WriteLine($"Number of badGuys: {badGuys.characters.Count}");
-                    Console.WriteLine($"It is {badGuys.characters[i]._name}'s turn.");
+                    // Console.WriteLine($"Number of badGuys: {badGuys.characters.Count}");
+                    Console.WriteLine($"It is {badGuys.characters[playerTurn]._name}'s turn.");
 
-                    if (badGuys._playerType == PlayerType.Computer) badGuys.characters[i].ComputerAction(badGuys, goodGuys);
-                    else badGuys.characters[i].PlayerAction(badGuys, goodGuys);
+                    if (badGuys._playerType == PlayerType.Computer) badGuys.characters[playerTurn].ComputerAction(badGuys, goodGuys);
+                    else badGuys.characters[playerTurn].PlayerAction(badGuys, goodGuys);
 
+                    // increment turn before checking if round is over
+                    _turn++;
                     // check if action eliminated enemy team
                     IsRoundOver(goodGuys, badGuys);
                     if (_roundOver) break;
                     Console.WriteLine();
                     Thread.Sleep(500);
-                    _turn++;
+                    
                 }
             }
+
+            // reset round
+            _roundOver = false;
         }
 
         /// <summary>
@@ -95,14 +117,11 @@ namespace FinalBattle
             {
                 // if good goodGuys count is 0, then we want to see if the game is over this round
                 IsGameOver(_round);
-                _roundOver = true;
 
-                // reset turn for heroes to go first
-                _turn = 0;
-                
+                _roundOver = true;
             }
 
-            _roundOver = false;
+            else _roundOver = false;
         }
 
         public void IsGameOver(int round)
