@@ -92,7 +92,8 @@ namespace FinalBattle
             {
                 int choice;
                 if (friends.characters[0]._name == "SKELETON") choice = 1;
-                else choice = 2;
+                else if (friends.characters[0]._name == "The Uncoded One") choice = 2;
+                else choice = 3;
 
                 switch (choice)
                 {
@@ -106,25 +107,75 @@ namespace FinalBattle
                         Console.WriteLine($"{_name} used Unraveling on {enemies.characters[0]._name}");
                         DealHitDamage(friends, enemies, attackType);
                         break;
+                    case 3:
+                        attackType = AttackType.Punch;
+                        Console.WriteLine($"{_name} used Punch on {enemies.characters[0]._name}");
+                        DealHitDamage(friends, enemies, attackType);
+                        break;
                 }
             }
 
             else if (friends._playerType == PlayerType.Human)
             {
-                Console.WriteLine();
-                Console.WriteLine("Choose your attack: ");
-                Console.WriteLine("1 - Punch");
-                int choice = Convert.ToInt32(Console.ReadLine());
+                if (friends.characters[0]._name == "SKELETON") SkeletonAttack(friends, enemies);
+                else if (friends.characters[0]._name == "The Uncoded One") UncodedOneAttack(friends, enemies);
+                else TrueProgramerAttack(friends, enemies);
 
-                switch (choice)
-                {
-                    case 1:
-                        attackType = AttackType.Punch;
-                        Console.WriteLine($"{_name} used PUNCH on {enemies.characters[0]._name}");
-                        DealHitDamage(friends, enemies, attackType);
-                        break;
-                }
+                //switch (choice)
+                //{
+                //    case 1:
+                //        attackType = AttackType.Punch;
+                //        Console.WriteLine($"{_name} used PUNCH on {enemies.characters[0]._name}");
+                //        DealHitDamage(friends, enemies, attackType);
+                //        break;
+                //    case 2:
+                //        attackType = AttackType.Unraveling;
+                //        Console.WriteLine($"{_name} used Unraveling on {enemies.characters[0]._name}");
+                //        DealHitDamage(friends, enemies, attackType);
+                //        break;
+                //    case 3:
+                //        attackType = AttackType.Punch;
+                //        Console.WriteLine($"{_name} used Punch on {enemies.characters[0]._name}");
+                //        DealHitDamage(friends, enemies, attackType);
+                //        break;
+                //}
             }
+        }
+
+        public void SkeletonAttack(Party friends, Party enemies)
+        {
+            Console.WriteLine();
+            Console.WriteLine("Choose your attack: ");
+            Console.WriteLine("1 - Bone Crunch");
+            int choice = Convert.ToInt32(Console.ReadLine());
+
+            AttackType attackType = AttackType.BoneCrunch;
+            Console.WriteLine($"{_name} used Bone Crunch on {enemies.characters[0]._name}");
+            DealHitDamage(friends, enemies, attackType);
+        }
+
+        public void UncodedOneAttack(Party friends, Party enemies)
+        {
+            Console.WriteLine();
+            Console.WriteLine("Choose your attack: ");
+            Console.WriteLine("1 - Unraveling");
+            int choice = Convert.ToInt32(Console.ReadLine());
+
+            AttackType attackType = AttackType.Unraveling;
+            Console.WriteLine($"{_name} used Unraveling on {enemies.characters[0]._name}");
+            DealHitDamage(friends, enemies, attackType);
+        }
+
+        public void TrueProgramerAttack(Party friends, Party enemies)
+        {
+            Console.WriteLine();
+            Console.WriteLine("Choose your attack: ");
+            Console.WriteLine("1 - Punch");
+            int choice = Convert.ToInt32(Console.ReadLine());
+
+            AttackType attackType = AttackType.Punch;
+            Console.WriteLine($"{_name} used Punch on {enemies.characters[0]._name}");
+            DealHitDamage(friends, enemies, attackType);
         }
 
         /// <summary>

@@ -9,13 +9,28 @@ namespace FinalBattle
 {
     public class Game
     {
-        int _turn = 0;
-        int _round = 1;
-        public bool _gameOver = false;
+        int _turn;
+        int _round;
+        public bool _gameOver;
         bool _roundOver;
+        PlayerType _heroes;
+        PlayerType _monsters;
 
-        Party goodGuys = new Party(PlayerType.Human, "Heroes", 1);
-        Party badGuys = new Party(PlayerType.Computer, "Monsters", 1);
+        Party goodGuys;
+        Party badGuys;
+
+        public Game(PlayerType heroes, PlayerType monsters)
+        {
+            _turn = 0;
+            _round = 1;
+            _gameOver = false;
+            _roundOver = false;
+            _heroes = heroes;
+            _monsters = monsters;
+
+            goodGuys = new Party(_heroes, "Heroes", 1);
+            badGuys = new Party(_monsters, "Monsters", 1);
+        }
 
         /// <summary>
         /// This function currently runs the turn logic for each game.  
@@ -32,19 +47,16 @@ namespace FinalBattle
                     Console.WriteLine("You have advanced to Round 2!");
                     Console.WriteLine();
 
-                    badGuys = new Party(PlayerType.Computer, "Monsters", 2);
-                    //Console.WriteLine("Creating new bad guys");
-                    //Console.WriteLine($"badGuys: {badGuys.characters.Count}");
+                    badGuys = new Party(_monsters, "Monsters", 2);
                 }
 
                 if (_round == 3)
                 {
-
                     // third round consists of the Uncoded One
                     Console.WriteLine("You have advanced to the Final Round! Get ready to fight the Uncoded One!");
                     Console.WriteLine();
 
-                    badGuys = new Party(PlayerType.Computer, "The Uncoded One", 1);
+                    badGuys = new Party(_monsters, "The Uncoded One", 1);
                 }
 
                 Round(_round, badGuys);
@@ -69,12 +81,13 @@ namespace FinalBattle
 
                     // increment turn before checking if round is over
                     _turn++;
+
                     // check if action eliminated enemy team
                     IsRoundOver(goodGuys, badGuys);
                     if (_roundOver) break;
+
                     Console.WriteLine();
                     Thread.Sleep(500);
-                    
                 }
 
                 if (GetTurn(_turn) == "Monsters")
@@ -87,9 +100,11 @@ namespace FinalBattle
 
                     // increment turn before checking if round is over
                     _turn++;
+
                     // check if action eliminated enemy team
                     IsRoundOver(goodGuys, badGuys);
                     if (_roundOver) break;
+
                     Console.WriteLine();
                     Thread.Sleep(500);
                     
@@ -128,23 +143,20 @@ namespace FinalBattle
         {
             if (goodGuys.characters.Count == 0 || badGuys.characters.Count == 0)
             {
-                
                 Console.WriteLine();
                 if (goodGuys.characters.Count == 0)
                 {
                     _gameOver = true;
                     Console.WriteLine("The Heroes have lost and the Uncoded One's forces have prevailed.");
                 }
-                    
                 else if (badGuys.characters.Count == 0 & round == 3)
                 {
                     _gameOver = true;
                     Console.WriteLine("The Heroes won! The Uncoded One has been defeated!");
                 }
             }
-            else _gameOver = false;
 
-            
+            else _gameOver = false;
         }
     }
 
