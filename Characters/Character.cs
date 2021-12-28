@@ -40,7 +40,7 @@ namespace FinalBattle
         /// <returns></returns>
         public ActionType ComputerAction(Party friends, Party enemies)
         {
-            Console.WriteLine("The computer is choosing an action.");
+            //Console.WriteLine("The computer is choosing an action.");
             Random rand = new Random();
             //int choice = rand.Next(0, 3); might want some randomness in the future, for now we are just going to have the cpu attack
             int choice = 2;
@@ -120,25 +120,6 @@ namespace FinalBattle
                 if (friends.characters[0]._name == "SKELETON") SkeletonAttack(friends, enemies);
                 else if (friends.characters[0]._name == "The Uncoded One") UncodedOneAttack(friends, enemies);
                 else TrueProgramerAttack(friends, enemies);
-
-                //switch (choice)
-                //{
-                //    case 1:
-                //        attackType = AttackType.Punch;
-                //        Console.WriteLine($"{_name} used PUNCH on {enemies.characters[0]._name}");
-                //        DealHitDamage(friends, enemies, attackType);
-                //        break;
-                //    case 2:
-                //        attackType = AttackType.Unraveling;
-                //        Console.WriteLine($"{_name} used Unraveling on {enemies.characters[0]._name}");
-                //        DealHitDamage(friends, enemies, attackType);
-                //        break;
-                //    case 3:
-                //        attackType = AttackType.Punch;
-                //        Console.WriteLine($"{_name} used Punch on {enemies.characters[0]._name}");
-                //        DealHitDamage(friends, enemies, attackType);
-                //        break;
-                //}
             }
         }
 
@@ -188,7 +169,7 @@ namespace FinalBattle
             int hitDamage = 0;
             Random random = new Random();
 
-            hitDamage = (attackType) switch
+            hitDamage = attackType switch
             {
                 AttackType.BoneCrunch => random.Next(2),
                 AttackType.Unraveling => random.Next(3),
@@ -213,11 +194,5 @@ namespace FinalBattle
             Console.WriteLine();
             Console.WriteLine($"{friends.characters[0]._name} killed {character._name}");
         }
-    }
-
-    
-
-   
-
-    
+    }  
 }

@@ -132,7 +132,6 @@ namespace FinalBattle
             {
                 // if good goodGuys count is 0, then we want to see if the game is over this round
                 IsGameOver(_round);
-
                 _roundOver = true;
             }
 
