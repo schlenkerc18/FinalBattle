@@ -9,7 +9,13 @@ namespace FinalBattle.Actions
 {
     public interface IAction
     {
-        void PlayerAction(Party friends, Party enemies, ActionType action);
+        void DecidePlayerAction(Party friends, Party enemies, ActionType action, PlayerType playerType)
+        {
+            if (playerType == PlayerType.Computer) ComputerAction(friends, enemies, action);
+            else HumanAction(friends, enemies, action);
+        }
+
+        void HumanAction(Party friends, Party enemies, ActionType action);
 
         void ComputerAction(Party friends, Party enemies, ActionType action);
     }

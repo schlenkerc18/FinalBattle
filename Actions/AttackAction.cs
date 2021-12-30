@@ -16,7 +16,7 @@ namespace FinalBattle.Actions
             else BoneCrunchAttack(friends, enemies);
         }
 
-        public void PlayerAction(Party friends, Party enemies, ActionType action)
+        public void HumanAction(Party friends, Party enemies, ActionType action)
         {
             if (action == ActionType.Punch) PunchAttack(friends, enemies);
             else if (action == ActionType.Unraveling) UnravelingAttack(friends, enemies);
