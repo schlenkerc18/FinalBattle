@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FinalBattle.Menus;
 
 namespace FinalBattle.Actions
 {
     public interface IAction
     {
-        ActionType PlayerAction(Party friends, Party enemies);
+        void PlayerAction(Party friends, Party enemies, ActionType action);
 
         ActionType ComputerAction(Party friends, Party enemies);
     }

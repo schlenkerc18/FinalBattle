@@ -86,7 +86,7 @@ namespace FinalBattle
         /// <param name="party"></param>
         public void ChooseAttack(Party friends, Party enemies)
         {
-            AttackType attackType;
+            ActionType action;
 
             if (friends._playerType == PlayerType.Computer)
             {
@@ -98,19 +98,19 @@ namespace FinalBattle
                 switch (choice)
                 {
                     case 1:
-                        attackType = AttackType.BoneCrunch;
+                        action = ActionType.BoneCrunch;
                         Console.WriteLine($"{_name} used Bone Crunch on {enemies.characters[0]._name}");
-                        DealHitDamage(friends, enemies, attackType);
+                        DealHitDamage(friends, enemies, action);
                         break;
                     case 2:
-                        attackType = AttackType.Unraveling;
+                        action = ActionType.Unraveling;
                         Console.WriteLine($"{_name} used Unraveling on {enemies.characters[0]._name}");
-                        DealHitDamage(friends, enemies, attackType);
+                        DealHitDamage(friends, enemies, action);
                         break;
                     case 3:
-                        attackType = AttackType.Punch;
+                        action = ActionType.Punch;
                         Console.WriteLine($"{_name} used Punch on {enemies.characters[0]._name}");
-                        DealHitDamage(friends, enemies, attackType);
+                        DealHitDamage(friends, enemies, action);
                         break;
                 }
             }
@@ -130,9 +130,9 @@ namespace FinalBattle
             Console.WriteLine("1 - Bone Crunch");
             int choice = Convert.ToInt32(Console.ReadLine());
 
-            AttackType attackType = AttackType.BoneCrunch;
+            ActionType ActionType = ActionType.BoneCrunch;
             Console.WriteLine($"{_name} used Bone Crunch on {enemies.characters[0]._name}");
-            DealHitDamage(friends, enemies, attackType);
+            DealHitDamage(friends, enemies, ActionType);
         }
 
         public void UncodedOneAttack(Party friends, Party enemies)
@@ -142,9 +142,9 @@ namespace FinalBattle
             Console.WriteLine("1 - Unraveling");
             int choice = Convert.ToInt32(Console.ReadLine());
 
-            AttackType attackType = AttackType.Unraveling;
+            ActionType ActionType = ActionType.Unraveling;
             Console.WriteLine($"{_name} used Unraveling on {enemies.characters[0]._name}");
-            DealHitDamage(friends, enemies, attackType);
+            DealHitDamage(friends, enemies, ActionType);
         }
 
         public void TrueProgramerAttack(Party friends, Party enemies)
@@ -154,9 +154,9 @@ namespace FinalBattle
             Console.WriteLine("1 - Punch");
             int choice = Convert.ToInt32(Console.ReadLine());
 
-            AttackType attackType = AttackType.Punch;
+            ActionType ActionType = ActionType.Punch;
             Console.WriteLine($"{_name} used Punch on {enemies.characters[0]._name}");
-            DealHitDamage(friends, enemies, attackType);
+            DealHitDamage(friends, enemies, ActionType);
         }
 
         /// <summary>
@@ -164,16 +164,16 @@ namespace FinalBattle
         /// </summary>
         /// <param name="friends"></param>
         /// <param name="enemies"></param>
-        public void DealHitDamage(Party friends, Party enemies, AttackType attackType)
+        public void DealHitDamage(Party friends, Party enemies, ActionType action)
         {
             int hitDamage = 0;
             Random random = new Random();
 
-            hitDamage = attackType switch
+            hitDamage = action switch
             {
-                AttackType.BoneCrunch => random.Next(2),
-                AttackType.Unraveling => random.Next(3),
-                AttackType.Punch => 1
+                ActionType.BoneCrunch => random.Next(2),
+                ActionType.Unraveling => random.Next(3),
+                ActionType.Punch => 1
             };
 
             if (enemies.characters[0]._currentHealth - hitDamage <= 0)

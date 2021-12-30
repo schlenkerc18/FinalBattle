@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FinalBattle.Actions;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,50 +9,106 @@ namespace FinalBattle.Menus
 {
     public class CreateMenu
     {
-        public void GetMenuItems(Party friends)
+        public void GetMenuItems(Party friends, Party enemies)
         {
-            string[] choices;
+            List<MenuItem> options;
+            AttackAction attack;
 
-            if (friends._name == "Heroes") choices = GetHeroMenu();
-            else if (friends._name == "Monsters") choices = GetMonsterMenu();
-            else choices = GetUncodedOneMenu();
-
-            List<MenuItem> menu = new List<MenuItem>();
-
-            for (int i = 0; i < choices.Length; i++)
+            if (friends._name == "Heroes")
             {
-                //MenuItem menuItem = new MenuItem();
+                options = GetHeroMenu();
+                ActionType action = GetAction(options);
+                if (action != ActionType.DoNothing)
+                {
+                    attack = new AttackAction();
+                    attack.PlayerAction(friends, enemies, action);
+                }
+                else
+                {
+                    DoNothingAction doNothing = new DoNothingAction();
+                    doNothing.PlayerAction(friends, enemies, action);
+                }
+            }
+
+            else if (friends._name == "Monsters")
+            {
+                options = GetMonsterMenu();
+                ActionType action = GetAction(options);
+                if (action != ActionType.DoNothing)
+                {
+                    attack = new AttackAction();
+                    Console.WriteLine(action);
+                    attack.PlayerAction(friends, enemies, action);
+                }
+                else
+                {
+                    DoNothingAction doNothing = new DoNothingAction();
+                    doNothing.PlayerAction(friends, enemies, action);
+                }
+            }
+
+            else
+            {
+                options = GetUncodedOneMenu();
+                ActionType action = GetAction(options);
+                if (action != ActionType.DoNothing)
+                {
+                    attack = new AttackAction();
+                    attack.PlayerAction(friends, enemies, action);
+                }
+                else
+                {
+                    DoNothingAction doNothing = new DoNothingAction();
+                    doNothing.PlayerAction(friends, enemies, action);
+                }
             }
         }
 
-        public string[] GetHeroMenu()
+        public List<MenuItem> GetHeroMenu()
         {
-            string[] choices = new string[2];
+            List<MenuItem> options = new List<MenuItem>();
 
-            choices[0] = "1 - Punch (Standard Attack)";
-            choices[1] = "2 - Do Nothing";
+            MenuItem menuItem = new MenuItem("1 - Punch (Standard Attack)", ActionType.Punch);
+            options.Add(menuItem);
+            menuItem = new MenuItem("2 - Do Nothing", ActionType.DoNothing);
+            options.Add(menuItem);
 
-            return choices;
+            return options;
         }
 
-        public string[] GetMonsterMenu()
+        public List<MenuItem> GetMonsterMenu()
         {
-            string[] choices = new string[2];
+            List<MenuItem> options = new List<MenuItem>();
 
-            choices[0] = "1 - Bone Crunch (Standard Attack)";
-            choices[1] = "2 - Do Nothing";
+            MenuItem menuItem = new MenuItem("1 - Bone Crunch (Standard Attack)", ActionType.BoneCrunch);
+            options.Add(menuItem);
+            menuItem = new MenuItem("2 - Do Nothing", ActionType.DoNothing);
+            options.Add(menuItem);
 
-            return choices;
+            return options;
         }
 
-        public string[] GetUncodedOneMenu()
+        public List<MenuItem> GetUncodedOneMenu()
         {
-            string[] choices = new string[2];
+            List<MenuItem> options = new List<MenuItem>();
 
-            choices[0] = "1 - Unraveling (Standard Attack)";
-            choices[1] = "2 - Do Nothing";
+            MenuItem menuItem = new MenuItem("1 - Unraveling (Standard Attack)", ActionType.Punch);
+            options.Add(menuItem);
+            menuItem = new MenuItem("2 - Do Nothing", ActionType.DoNothing);
+            options.Add(menuItem);
 
-            return choices;
+            return options;
+        }
+
+        public ActionType GetAction(List<MenuItem> options)
+        {
+            for (int i = 0; i < options.Count; i++)
+                Console.WriteLine(options[i]);
+
+            int choice = Convert.ToInt32(Console.ReadLine());
+
+            // need to subtract one from choice to get correct action
+            return options[choice - 1].action;
         }
     }
 }

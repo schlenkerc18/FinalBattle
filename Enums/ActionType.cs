@@ -8,5 +8,8 @@ using System.Threading.Tasks;
 public enum ActionType
 {
     DoNothing,
-    Attack
+    Attack,
+    Punch,
+    Unraveling,
+    BoneCrunch
 }

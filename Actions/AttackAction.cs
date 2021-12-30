@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FinalBattle.Menus;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,22 +9,23 @@ namespace FinalBattle.Actions
 {
     public class AttackAction : IAction
     {
-        public AttackType PunchAttack(Party friends, Party enemies)
+        public void PunchAttack(Party friends, Party enemies)
         {
             Console.WriteLine($"{friends.characters[0]._name} used Punch on {enemies.characters[0]._name}.");
-            return AttackType.Punch;
+            friends.characters[0].DealHitDamage(friends, enemies, ActionType.Punch);
+            //return AttackType.Punch;
         }
 
-        public AttackType UnravelingAttack(Party friends, Party enemies)
+        public void UnravelingAttack(Party friends, Party enemies)
         {
             Console.WriteLine($"{friends.characters[0]._name} used Unraveling on {enemies.characters[0]._name}.");
-            return AttackType.Unraveling;
+            friends.characters[0].DealHitDamage(friends, enemies, ActionType.Unraveling);
         }
 
-        public AttackType BoneCrunchAttack(Party friends, Party enemies)
+        public void BoneCrunchAttack(Party friends, Party enemies)
         {
             Console.WriteLine($"{friends.characters[0]._name} used Bone Crunch on {enemies.characters[0]._name}.");
-            return AttackType.BoneCrunch;
+            friends.characters[0].DealHitDamage(friends, enemies, ActionType.BoneCrunch);
         }
 
         public ActionType ComputerAction(Party friends, Party enemies)
@@ -31,9 +33,11 @@ namespace FinalBattle.Actions
             throw new NotImplementedException();
         }
 
-        public ActionType PlayerAction(Party friends, Party enemies)
+        public void PlayerAction(Party friends, Party enemies, ActionType action)
         {
-            throw new NotImplementedException();
+            if (action == ActionType.Punch) PunchAttack(friends, enemies);
+            else if (action == ActionType.Unraveling) UnravelingAttack(friends, enemies);
+            else BoneCrunchAttack(friends, enemies);
         }
     }
 }

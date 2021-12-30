@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FinalBattle.Menus;
 
 namespace FinalBattle.Actions
 {
@@ -20,7 +21,7 @@ namespace FinalBattle.Actions
             throw new NotImplementedException();
         }
 
-        public ActionType PlayerAction(Party friends, Party enemies)
+        public void PlayerAction(Party friends, Party enemies, ActionType action)
         {
             throw new NotImplementedException();
         }
