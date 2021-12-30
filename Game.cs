@@ -104,6 +104,7 @@ namespace FinalBattle
                     // Console.WriteLine($"Number of badGuys: {badGuys.characters.Count}");
                     Console.WriteLine($"It is {badGuys.characters[playerTurn]._name}'s turn.");
 
+                    // TODO: need to iterate through characters, only the first character in a party is ever taking a turn right now
                     // this gets menu and then allows player to choose action
                     menu.GetMenuItems(badGuys, goodGuys, badGuys.characters[0]);                   
 
