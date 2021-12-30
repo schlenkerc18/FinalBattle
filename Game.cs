@@ -32,8 +32,8 @@ namespace FinalBattle
             _heroes = heroes;
             _monsters = monsters;
 
-            goodGuys = new Party(_heroes, "Heroes", 1);
-            badGuys = new Party(_monsters, "Monsters", 1);
+            goodGuys = new Party(_heroes, "Heroes", 1, 3);
+            badGuys = new Party(_monsters, "Monsters", 1, 1);
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace FinalBattle
                     Console.WriteLine("You have advanced to Round 2!");
                     Console.WriteLine();
 
-                    badGuys = new Party(_monsters, "Monsters", 2);
+                    badGuys = new Party(_monsters, "Monsters", 2, 1);
                 }
 
                 if (_round == 3)
@@ -60,7 +60,7 @@ namespace FinalBattle
                     Console.WriteLine("You have advanced to the Final Round! Get ready to fight the Uncoded One!");
                     Console.WriteLine();
 
-                    badGuys = new Party(_monsters, "The Uncoded One", 1);
+                    badGuys = new Party(_monsters, "The Uncoded One", 1, 1);
                 }
 
                 Round(_round, badGuys);
@@ -81,7 +81,7 @@ namespace FinalBattle
                     Console.WriteLine($"It is {goodGuys.characters[playerTurn]._name}'s turn.");
 
                     // this gets menu and then allows player to choose action
-                    menu.GetMenuItems(goodGuys, badGuys);                    
+                    menu.GetMenuItems(goodGuys, badGuys, goodGuys.characters[0]);                    
 
                     // increment turn before checking if round is over
                     _turn++;
@@ -105,7 +105,7 @@ namespace FinalBattle
                     Console.WriteLine($"It is {badGuys.characters[playerTurn]._name}'s turn.");
 
                     // this gets menu and then allows player to choose action
-                    menu.GetMenuItems(badGuys, goodGuys);                   
+                    menu.GetMenuItems(badGuys, goodGuys, badGuys.characters[0]);                   
 
                     // increment turn before checking if round is over
                     _turn++;

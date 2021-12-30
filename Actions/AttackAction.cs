@@ -9,14 +9,14 @@ namespace FinalBattle.Actions
 {
     public class AttackAction : IAction
     {
-        public void ComputerAction(Party friends, Party enemies, ActionType action)
+        public void ComputerAction(Party friends, Party enemies, ActionType action, Character character)
         {
             if (action == ActionType.Punch) PunchAttack(friends, enemies);
             else if (action == ActionType.Unraveling) UnravelingAttack(friends, enemies);
             else BoneCrunchAttack(friends, enemies);
         }
 
-        public void HumanAction(Party friends, Party enemies, ActionType action)
+        public void HumanAction(Party friends, Party enemies, ActionType action, Character character)
         {
             if (action == ActionType.Punch) PunchAttack(friends, enemies);
             else if (action == ActionType.Unraveling) UnravelingAttack(friends, enemies);

@@ -4,6 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FinalBattle.Characters;
+using FinalBattle.Items;
+using FinalBattle.Enums;
 
 namespace FinalBattle
 {
@@ -12,11 +14,15 @@ namespace FinalBattle
         public List<Character> characters = new List<Character>();
         public string _name { private set; get; }
         public PlayerType _playerType { private set; get; }
+        public List<ItemType> _items;
 
-        public Party(PlayerType playerType, string name, int charactersToAdd)
+        public Party(PlayerType playerType, string name, int charactersToAdd, int itemsToAdd)
         {
             _name = name;
             _playerType = playerType;
+            _items = new List<ItemType>();
+
+            FillItemInventory(itemsToAdd);
 
             if (name == "Heroes")
             {
@@ -31,6 +37,14 @@ namespace FinalBattle
             }
 
             else AddCharacters(charactersToAdd);
+        }
+
+        public void FillItemInventory(int itemsToAdd)
+        {
+            for (int i = 0; i < itemsToAdd; i++)
+            {
+                _items.Add(ItemType.Potion);
+            }
         }
 
         public void AddCharacters(int numberOfCharacters)

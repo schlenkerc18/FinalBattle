@@ -11,5 +11,6 @@ public enum ActionType
     Attack,
     Punch,
     Unraveling,
-    BoneCrunch
+    BoneCrunch,
+    UsePotion
 }

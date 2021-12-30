@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-public enum AttackType
+namespace FinalBattle.Enums
 {
-    Punch,
-    BoneCrunch,
-    Unraveling
+    public enum ItemType
+    {
+        Potion
+    }
 }

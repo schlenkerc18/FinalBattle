@@ -9,12 +9,12 @@ namespace FinalBattle.Actions
 {
     public class DoNothingAction : IAction
     {
-        public void ComputerAction(Party friends, Party enemies, ActionType action)
+        public void ComputerAction(Party friends, Party enemies, ActionType action, Character character)
         {
             DoNothing(friends, enemies);
         }
 
-        public void HumanAction(Party friends, Party enemies, ActionType action)
+        public void HumanAction(Party friends, Party enemies, ActionType action, Character character)
         {
             DoNothing(friends, enemies);
         }
