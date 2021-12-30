@@ -17,49 +17,85 @@ namespace FinalBattle.Menus
             if (friends._name == "Heroes")
             {
                 options = GetHeroMenu();
-                ActionType action = GetAction(options);
-                if (action != ActionType.DoNothing)
+
+
+                if (friends._playerType == PlayerType.Human)
                 {
-                    attack = new AttackAction();
-                    attack.PlayerAction(friends, enemies, action);
+                    ActionType action = GetAction(options);
+
+                    if (action != ActionType.DoNothing)
+                    {
+                        
+                        attack = new AttackAction();
+                        attack.PlayerAction(friends, enemies, action);
+                    }
+                    else
+                    {
+                        DoNothingAction doNothing = new DoNothingAction();
+                        doNothing.PlayerAction(friends, enemies, action);
+                    }
                 }
+
                 else
                 {
-                    DoNothingAction doNothing = new DoNothingAction();
-                    doNothing.PlayerAction(friends, enemies, action);
+                    ActionType action = options[0].action;
+                    attack = new AttackAction();
+                    attack.ComputerAction(friends, enemies, action);
                 }
             }
 
             else if (friends._name == "Monsters")
             {
                 options = GetMonsterMenu();
-                ActionType action = GetAction(options);
-                if (action != ActionType.DoNothing)
+
+                if (friends._playerType == PlayerType.Human)
                 {
-                    attack = new AttackAction();
-                    Console.WriteLine(action);
-                    attack.PlayerAction(friends, enemies, action);
+                    ActionType action = GetAction(options);
+
+                    if (action != ActionType.DoNothing)
+                    {
+                        attack = new AttackAction();
+                        attack.PlayerAction(friends, enemies, action);
+                    }
+                    else
+                    {
+                        DoNothingAction doNothing = new DoNothingAction();
+                        doNothing.PlayerAction(friends, enemies, action);
+                    }
                 }
                 else
                 {
-                    DoNothingAction doNothing = new DoNothingAction();
-                    doNothing.PlayerAction(friends, enemies, action);
+                    ActionType action = options[0].action;
+                    attack = new AttackAction();
+                    attack.ComputerAction(friends, enemies, action);
                 }
             }
 
             else
             {
                 options = GetUncodedOneMenu();
-                ActionType action = GetAction(options);
-                if (action != ActionType.DoNothing)
+                
+
+                if (friends._playerType == PlayerType.Human)
                 {
-                    attack = new AttackAction();
-                    attack.PlayerAction(friends, enemies, action);
+                    ActionType action = GetAction(options);
+
+                    if (action != ActionType.DoNothing)
+                    {
+                        attack = new AttackAction();
+                        attack.PlayerAction(friends, enemies, action);
+                    }
+                    else
+                    {
+                        DoNothingAction doNothing = new DoNothingAction();
+                        doNothing.PlayerAction(friends, enemies, action);
+                    }
                 }
                 else
                 {
-                    DoNothingAction doNothing = new DoNothingAction();
-                    doNothing.PlayerAction(friends, enemies, action);
+                    ActionType action = options[0].action;
+                    attack = new AttackAction();
+                    attack.ComputerAction(friends, enemies, action);
                 }
             }
         }
@@ -92,7 +128,7 @@ namespace FinalBattle.Menus
         {
             List<MenuItem> options = new List<MenuItem>();
 
-            MenuItem menuItem = new MenuItem("1 - Unraveling (Standard Attack)", ActionType.Punch);
+            MenuItem menuItem = new MenuItem("1 - Unraveling (Standard Attack)", ActionType.Unraveling);
             options.Add(menuItem);
             menuItem = new MenuItem("2 - Do Nothing", ActionType.DoNothing);
             options.Add(menuItem);

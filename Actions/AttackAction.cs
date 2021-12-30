@@ -28,9 +28,11 @@ namespace FinalBattle.Actions
             friends.characters[0].DealHitDamage(friends, enemies, ActionType.BoneCrunch);
         }
 
-        public ActionType ComputerAction(Party friends, Party enemies)
+        public void ComputerAction(Party friends, Party enemies, ActionType action)
         {
-            throw new NotImplementedException();
+            if (action == ActionType.Punch) PunchAttack(friends, enemies);
+            else if (action == ActionType.Unraveling) UnravelingAttack(friends, enemies);
+            else BoneCrunchAttack(friends, enemies);
         }
 
         public void PlayerAction(Party friends, Party enemies, ActionType action)

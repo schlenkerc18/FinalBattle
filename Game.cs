@@ -79,6 +79,7 @@ namespace FinalBattle
                     // Console.WriteLine($"Bad guys left: {badGuys.characters.Count}");
                     Console.WriteLine($"It is {goodGuys.characters[playerTurn]._name}'s turn.");
 
+                    // this gets menu and then allows player to choose action
                     menu.GetMenuItems(goodGuys, badGuys);
 
                     // increment turn before checking if round is over
@@ -97,9 +98,8 @@ namespace FinalBattle
                     // Console.WriteLine($"Number of badGuys: {badGuys.characters.Count}");
                     Console.WriteLine($"It is {badGuys.characters[playerTurn]._name}'s turn.");
 
+                    // this gets menu and then allows player to choose action
                     menu.GetMenuItems(badGuys, goodGuys);
-                    //if (badGuys._playerType == PlayerType.Computer) badGuys.characters[playerTurn].ComputerAction(badGuys, goodGuys);
-                    //else badGuys.characters[playerTurn].PlayerAction(badGuys, goodGuys);
 
                     // increment turn before checking if round is over
                     _turn++;
@@ -161,7 +161,4 @@ namespace FinalBattle
             else _gameOver = false;
         }
     }
-
-    
-
 }

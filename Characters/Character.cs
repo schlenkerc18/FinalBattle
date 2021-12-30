@@ -23,30 +23,30 @@ namespace FinalBattle
         /// </summary>
         /// <param name="party"></param>
         /// <returns></returns>
-        public ActionType PlayerAction(Party friends, Party enemies)
-        {
-            Console.WriteLine("Choose your action.");
-            Console.WriteLine("1 - Do Nothing");
-            Console.WriteLine("2 - Attack");
-            int choice = Convert.ToInt32(Console.ReadLine());
+        //public ActionType PlayerAction(Party friends, Party enemies)
+        //{
+        //    Console.WriteLine("Choose your action.");
+        //    Console.WriteLine("1 - Do Nothing");
+        //    Console.WriteLine("2 - Attack");
+        //    int choice = Convert.ToInt32(Console.ReadLine());
 
-            return GetAction(choice, friends, enemies);
-        }
+        //    return GetAction(choice, friends, enemies);
+        //}
 
         /// <summary>
         /// Computer picks an action at random
         /// </summary>
         /// <param name="party"></param>
         /// <returns></returns>
-        public ActionType ComputerAction(Party friends, Party enemies)
-        {
-            //Console.WriteLine("The computer is choosing an action.");
-            Random rand = new Random();
-            //int choice = rand.Next(0, 3); might want some randomness in the future, for now we are just going to have the cpu attack
-            int choice = 2;
-            Thread.Sleep(1000);
-            return GetAction(choice, friends, enemies);
-        }
+        //public ActionType ComputerAction(Party friends, Party enemies)
+        //{
+        //    //Console.WriteLine("The computer is choosing an action.");
+        //    Random rand = new Random();
+        //    //int choice = rand.Next(0, 3); might want some randomness in the future, for now we are just going to have the cpu attack
+        //    int choice = 2;
+        //    Thread.Sleep(1000);
+        //    return GetAction(choice, friends, enemies);
+        //}
 
         /// <summary>
         /// Runs the given action that the player or computer chose
@@ -55,28 +55,28 @@ namespace FinalBattle
         /// <param name="friends"></param>
         /// <param name="enemies"></param>
         /// <returns></returns>
-        public ActionType GetAction(int choice, Party friends, Party enemies)
-        {
-            ActionType action;
+        //public ActionType GetAction(int choice, Party friends, Party enemies)
+        //{
+        //    ActionType action;
 
-            switch (choice)
-            {
-                case 1:
-                    action = ActionType.DoNothing;
-                    Console.WriteLine($"{_name} did nothing.");
-                    break;
-                case 2:
-                    action = ActionType.Attack;
-                    ChooseAttack(friends, enemies);
-                    break;
-                default:
-                    action = ActionType.DoNothing;
-                    Console.WriteLine($"{_name} did nothing.");
-                    break;
-            }
+        //    switch (choice)
+        //    {
+        //        case 1:
+        //            action = ActionType.DoNothing;
+        //            Console.WriteLine($"{_name} did nothing.");
+        //            break;
+        //        case 2:
+        //            action = ActionType.Attack;
+        //            ChooseAttack(friends, enemies);
+        //            break;
+        //        default:
+        //            action = ActionType.DoNothing;
+        //            Console.WriteLine($"{_name} did nothing.");
+        //            break;
+        //    }
 
-            return action;
-        }
+        //    return action;
+        //}
 
         /// <summary>
         /// Lets the current player choose an enemy to attack
@@ -84,80 +84,46 @@ namespace FinalBattle
         /// and the human's only choice is "Punch"
         /// </summary>
         /// <param name="party"></param>
-        public void ChooseAttack(Party friends, Party enemies)
-        {
-            ActionType action;
+        //public void ChooseAttack(Party friends, Party enemies)
+        //{
+        //    ActionType action;
 
-            if (friends._playerType == PlayerType.Computer)
-            {
-                int choice;
-                if (friends.characters[0]._name == "SKELETON") choice = 1;
-                else if (friends.characters[0]._name == "The Uncoded One") choice = 2;
-                else choice = 3;
+        //    if (friends._playerType == PlayerType.Computer)
+        //    {
+        //        int choice;
+        //        if (friends.characters[0]._name == "SKELETON") choice = 1;
+        //        else if (friends.characters[0]._name == "The Uncoded One") choice = 2;
+        //        else choice = 3;
 
-                switch (choice)
-                {
-                    case 1:
-                        action = ActionType.BoneCrunch;
-                        Console.WriteLine($"{_name} used Bone Crunch on {enemies.characters[0]._name}");
-                        DealHitDamage(friends, enemies, action);
-                        break;
-                    case 2:
-                        action = ActionType.Unraveling;
-                        Console.WriteLine($"{_name} used Unraveling on {enemies.characters[0]._name}");
-                        DealHitDamage(friends, enemies, action);
-                        break;
-                    case 3:
-                        action = ActionType.Punch;
-                        Console.WriteLine($"{_name} used Punch on {enemies.characters[0]._name}");
-                        DealHitDamage(friends, enemies, action);
-                        break;
-                }
-            }
+        //        switch (choice)
+        //        {
+        //            case 1:
+        //                action = ActionType.BoneCrunch;
+        //                Console.WriteLine($"{_name} used Bone Crunch on {enemies.characters[0]._name}");
+        //                DealHitDamage(friends, enemies, action);
+        //                break;
+        //            case 2:
+        //                action = ActionType.Unraveling;
+        //                Console.WriteLine($"{_name} used Unraveling on {enemies.characters[0]._name}");
+        //                DealHitDamage(friends, enemies, action);
+        //                break;
+        //            case 3:
+        //                action = ActionType.Punch;
+        //                Console.WriteLine($"{_name} used Punch on {enemies.characters[0]._name}");
+        //                DealHitDamage(friends, enemies, action);
+        //                break;
+        //        }
+        //    }
 
-            else if (friends._playerType == PlayerType.Human)
-            {
-                if (friends.characters[0]._name == "SKELETON") SkeletonAttack(friends, enemies);
-                else if (friends.characters[0]._name == "The Uncoded One") UncodedOneAttack(friends, enemies);
-                else TrueProgramerAttack(friends, enemies);
-            }
-        }
+        //    else if (friends._playerType == PlayerType.Human)
+        //    {
+        //        if (friends.characters[0]._name == "SKELETON") SkeletonAttack(friends, enemies);
+        //        else if (friends.characters[0]._name == "The Uncoded One") UncodedOneAttack(friends, enemies);
+        //        else TrueProgramerAttack(friends, enemies);
+        //    }
+        //}
 
-        public void SkeletonAttack(Party friends, Party enemies)
-        {
-            Console.WriteLine();
-            Console.WriteLine("Choose your attack: ");
-            Console.WriteLine("1 - Bone Crunch");
-            int choice = Convert.ToInt32(Console.ReadLine());
 
-            ActionType ActionType = ActionType.BoneCrunch;
-            Console.WriteLine($"{_name} used Bone Crunch on {enemies.characters[0]._name}");
-            DealHitDamage(friends, enemies, ActionType);
-        }
-
-        public void UncodedOneAttack(Party friends, Party enemies)
-        {
-            Console.WriteLine();
-            Console.WriteLine("Choose your attack: ");
-            Console.WriteLine("1 - Unraveling");
-            int choice = Convert.ToInt32(Console.ReadLine());
-
-            ActionType ActionType = ActionType.Unraveling;
-            Console.WriteLine($"{_name} used Unraveling on {enemies.characters[0]._name}");
-            DealHitDamage(friends, enemies, ActionType);
-        }
-
-        public void TrueProgramerAttack(Party friends, Party enemies)
-        {
-            Console.WriteLine();
-            Console.WriteLine("Choose your attack: ");
-            Console.WriteLine("1 - Punch");
-            int choice = Convert.ToInt32(Console.ReadLine());
-
-            ActionType ActionType = ActionType.Punch;
-            Console.WriteLine($"{_name} used Punch on {enemies.characters[0]._name}");
-            DealHitDamage(friends, enemies, ActionType);
-        }
 
         /// <summary>
         /// Deals hit damage to characters, removes them if their current HP is 0

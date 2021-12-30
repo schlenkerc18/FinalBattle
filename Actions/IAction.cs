@@ -11,6 +11,6 @@ namespace FinalBattle.Actions
     {
         void PlayerAction(Party friends, Party enemies, ActionType action);
 
-        ActionType ComputerAction(Party friends, Party enemies);
+        void ComputerAction(Party friends, Party enemies, ActionType action);
     }
 }

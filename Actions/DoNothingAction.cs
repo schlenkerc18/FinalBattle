@@ -9,21 +9,19 @@ namespace FinalBattle.Actions
 {
     public class DoNothingAction : IAction
     {
-        public ActionType DoNothing(Party friends, Party enemies)
+        public void DoNothing(Party friends, Party enemies)
         {
             Console.WriteLine($"{friends.characters[0]._name} did nothing.");
-
-            return ActionType.DoNothing;
         }
 
-        public ActionType ComputerAction(Party friends, Party enemies)
+        public void ComputerAction(Party friends, Party enemies, ActionType action)
         {
-            throw new NotImplementedException();
+            DoNothing(friends, enemies);
         }
 
         public void PlayerAction(Party friends, Party enemies, ActionType action)
         {
-            throw new NotImplementedException();
+            DoNothing(friends, enemies);
         }
     }
 }
