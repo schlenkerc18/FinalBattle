@@ -27,7 +27,6 @@ namespace FinalBattle.Actions
         {
             Console.WriteLine($"{friends.characters[0]._name} used Punch on {enemies.characters[0]._name}.");
             DealHitDamage(friends, enemies, ActionType.Punch);
-
         }
 
         public void UnravelingAttack(Party friends, Party enemies)
@@ -41,8 +40,6 @@ namespace FinalBattle.Actions
             Console.WriteLine($"{friends.characters[0]._name} used Bone Crunch on {enemies.characters[0]._name}.");
             DealHitDamage(friends, enemies, ActionType.BoneCrunch);
         }
-
-        
 
         public void DealHitDamage(Party friends, Party enemies, ActionType action)
         {

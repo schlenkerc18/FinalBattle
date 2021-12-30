@@ -14,134 +14,60 @@ namespace FinalBattle.Menus
             List<MenuItem> options;
             AttackAction attack;
 
-            if (friends._name == "Heroes")
+            options = GetMenu(friends._name);
+            ActionType action = GetAction(options, friends._playerType);
+
+            if (action != ActionType.DoNothing)
             {
-                options = GetHeroMenu();
 
-
-                if (friends._playerType == PlayerType.Human)
-                {
-                    ActionType action = GetAction(options);
-
-                    if (action != ActionType.DoNothing)
-                    {
-                        
-                        attack = new AttackAction();
-                        attack.PlayerAction(friends, enemies, action);
-                    }
-                    else
-                    {
-                        DoNothingAction doNothing = new DoNothingAction();
-                        doNothing.PlayerAction(friends, enemies, action);
-                    }
-                }
-
-                else
-                {
-                    ActionType action = options[0].action;
-                    attack = new AttackAction();
-                    attack.ComputerAction(friends, enemies, action);
-                }
+                attack = new AttackAction();
+                attack.PlayerAction(friends, enemies, action);
             }
-
-            else if (friends._name == "Monsters")
-            {
-                options = GetMonsterMenu();
-
-                if (friends._playerType == PlayerType.Human)
-                {
-                    ActionType action = GetAction(options);
-
-                    if (action != ActionType.DoNothing)
-                    {
-                        attack = new AttackAction();
-                        attack.PlayerAction(friends, enemies, action);
-                    }
-                    else
-                    {
-                        DoNothingAction doNothing = new DoNothingAction();
-                        doNothing.PlayerAction(friends, enemies, action);
-                    }
-                }
-                else
-                {
-                    ActionType action = options[0].action;
-                    attack = new AttackAction();
-                    attack.ComputerAction(friends, enemies, action);
-                }
-            }
-
             else
             {
-                options = GetUncodedOneMenu();
-                
-
-                if (friends._playerType == PlayerType.Human)
-                {
-                    ActionType action = GetAction(options);
-
-                    if (action != ActionType.DoNothing)
-                    {
-                        attack = new AttackAction();
-                        attack.PlayerAction(friends, enemies, action);
-                    }
-                    else
-                    {
-                        DoNothingAction doNothing = new DoNothingAction();
-                        doNothing.PlayerAction(friends, enemies, action);
-                    }
-                }
-                else
-                {
-                    ActionType action = options[0].action;
-                    attack = new AttackAction();
-                    attack.ComputerAction(friends, enemies, action);
-                }
+                DoNothingAction doNothing = new DoNothingAction();
+                doNothing.PlayerAction(friends, enemies, action);
             }
         }
 
-        public List<MenuItem> GetHeroMenu()
+        public List<MenuItem> GetMenu(string name)
         {
             List<MenuItem> options = new List<MenuItem>();
 
-            MenuItem menuItem = new MenuItem("1 - Punch (Standard Attack)", ActionType.Punch);
-            options.Add(menuItem);
-            menuItem = new MenuItem("2 - Do Nothing", ActionType.DoNothing);
-            options.Add(menuItem);
+            if (name == "Heroes")
+            {
+                MenuItem menuItem = new MenuItem("1 - Punch (Standard Attack)", ActionType.Punch);
+                options.Add(menuItem);
+            }
+            else if (name == "Monsters")
+            {
+                MenuItem menuItem = new MenuItem("1 - Bone Crunch (Standard Attack)", ActionType.BoneCrunch);
+                options.Add(menuItem);
+            }
+            else
+            {
+                MenuItem menuItem = new MenuItem("1 - Unraveling (Standard Attack)", ActionType.Unraveling);
+                options.Add(menuItem);
+            }
+
+            
+            MenuItem item = new MenuItem("2 - Do Nothing", ActionType.DoNothing);
+            options.Add(item);
 
             return options;
         }
 
-        public List<MenuItem> GetMonsterMenu()
+        public ActionType GetAction(List<MenuItem> options, PlayerType playerType)
         {
-            List<MenuItem> options = new List<MenuItem>();
+            // if computer, automatically attack
+            if (playerType == PlayerType.Computer) return options[0].action;
 
-            MenuItem menuItem = new MenuItem("1 - Bone Crunch (Standard Attack)", ActionType.BoneCrunch);
-            options.Add(menuItem);
-            menuItem = new MenuItem("2 - Do Nothing", ActionType.DoNothing);
-            options.Add(menuItem);
-
-            return options;
-        }
-
-        public List<MenuItem> GetUncodedOneMenu()
-        {
-            List<MenuItem> options = new List<MenuItem>();
-
-            MenuItem menuItem = new MenuItem("1 - Unraveling (Standard Attack)", ActionType.Unraveling);
-            options.Add(menuItem);
-            menuItem = new MenuItem("2 - Do Nothing", ActionType.DoNothing);
-            options.Add(menuItem);
-
-            return options;
-        }
-
-        public ActionType GetAction(List<MenuItem> options)
-        {
+            Console.WriteLine("Choose an action: ");
             for (int i = 0; i < options.Count; i++)
                 Console.WriteLine(options[i]);
 
             int choice = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine();
 
             // need to subtract one from choice to get correct action
             return options[choice - 1].action;
