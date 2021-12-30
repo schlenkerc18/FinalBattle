@@ -55,7 +55,28 @@ namespace FinalBattle.Menus
             for (int i = 0; i < options.Count; i++)
                 Console.WriteLine(options[i]);
 
-            int choice = Convert.ToInt32(Console.ReadLine());
+            int choice = 0;
+
+            try
+            {
+                choice = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine();
+            }
+            catch (FormatException e)
+            {
+                Console.WriteLine();
+                Console.WriteLine("That is not a recognized action. Defaulting to attack.");
+                
+                choice = 1;
+            }
+            finally
+            {
+                if (choice > 2)
+                {
+                    Console.WriteLine("You did not choose a number from the list of provided actions. Defaulting to attack.");
+                    choice = 1;
+                }
+            }
 
             if (choice == 1) return new AttackAction();
             else return new DoNothingAction();
