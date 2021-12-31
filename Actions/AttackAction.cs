@@ -9,39 +9,21 @@ namespace FinalBattle.Actions
 {
     public class AttackAction : IAction
     {
-        public void ComputerAction(Party friends, Party enemies, ActionType action, Character character)
+        public void ComputerAction(Party friends, Party enemies, ActionType action, Character attackingCharacter)
         {
-            if (action == ActionType.Punch) PunchAttack(friends, enemies);
-            else if (action == ActionType.Unraveling) UnravelingAttack(friends, enemies);
-            else BoneCrunchAttack(friends, enemies);
+            Attack(friends, enemies, action, attackingCharacter);
         }
 
-        public void HumanAction(Party friends, Party enemies, ActionType action, Character character)
+        public void HumanAction(Party friends, Party enemies, ActionType action, Character attackingCharacter)
         {
-            if (action == ActionType.Punch) PunchAttack(friends, enemies);
-            else if (action == ActionType.Unraveling) UnravelingAttack(friends, enemies);
-            else BoneCrunchAttack(friends, enemies);
+            Attack(friends, enemies, action, attackingCharacter);
         }
 
-        public void PunchAttack(Party friends, Party enemies)
+        public void Attack(Party friends, Party enemies, ActionType action, Character attackingCharacter)
         {
             int characterPosition = ChooseCharacterToAttack(friends, enemies);
-            Console.WriteLine($"{friends.characters[0]._name} used Punch on {enemies.characters[characterPosition]._name}.");
-            DealHitDamage(friends, enemies, ActionType.Punch, characterPosition);
-        }
-
-        public void UnravelingAttack(Party friends, Party enemies)
-        {
-            int characterPosition = ChooseCharacterToAttack(friends, enemies);
-            Console.WriteLine($"{friends.characters[0]._name} used Unraveling on {enemies.characters[characterPosition]._name}.");
-            DealHitDamage(friends, enemies, ActionType.Unraveling, characterPosition);
-        }
-
-        public void BoneCrunchAttack(Party friends, Party enemies)
-        {
-            int characterPosition = ChooseCharacterToAttack(friends, enemies);
-            Console.WriteLine($"{friends.characters[0]._name} used Bone Crunch on {enemies.characters[characterPosition]._name}.");
-            DealHitDamage(friends, enemies, ActionType.BoneCrunch, characterPosition);
+            Console.WriteLine($"{attackingCharacter._name} used {action} on {enemies.characters[characterPosition]._name}.");
+            DealHitDamage(attackingCharacter, enemies, action, characterPosition);
         }
 
         public int ChooseCharacterToAttack(Party friends, Party enemies)
@@ -63,7 +45,7 @@ namespace FinalBattle.Actions
 
         }
 
-        public void DealHitDamage(Party friends, Party enemies, ActionType action, int characterPosition)
+        public void DealHitDamage(Character attackingCharacter, Party enemies, ActionType action, int characterPosition)
         {
             int hitDamage = 0;
             Random random = new Random();
@@ -82,18 +64,19 @@ namespace FinalBattle.Actions
             else enemies.characters[characterPosition]._currentHealth -= hitDamage;
 
             Console.WriteLine($"The attack dealt {hitDamage} damage to {enemies.characters[characterPosition]._name}.");
+
             Console.WriteLine($"{enemies.characters[characterPosition]._name} is now at " +
                 $"{enemies.characters[characterPosition]._currentHealth}/{enemies.characters[characterPosition]._maxHealth}");
 
-            if (enemies.characters[characterPosition]._currentHealth == characterPosition) 
-                RemoveCharacterFromParty(friends, enemies, enemies.characters[characterPosition], characterPosition);
+            if (enemies.characters[characterPosition]._currentHealth == 0) 
+                RemoveCharacterFromParty(attackingCharacter, enemies, characterPosition);
         }
 
-        public void RemoveCharacterFromParty(Party friends, Party enemies, Character character, int characterPosition)
+        public void RemoveCharacterFromParty(Character attackingCharacter, Party enemies, int characterPosition)
         {
-            enemies.characters.Remove(character);
+            Console.WriteLine($"{attackingCharacter._name} killed {enemies.characters[characterPosition]._name}");
+            enemies.characters.Remove(enemies.characters[characterPosition]);
             Console.WriteLine();
-            Console.WriteLine($"{friends.characters[characterPosition]._name} killed {character._name}");
         }
     }
 }
