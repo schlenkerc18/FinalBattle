@@ -49,12 +49,22 @@ namespace FinalBattle
 
         public void AddCharacters(int numberOfCharacters)
         {
-            // currently just adding skeletons
-            for (int i = 0; i < numberOfCharacters; i++)
+            //currently just adding skeletons
+            //for (int i = 0; i < numberOfCharacters; i++)
+            //{
+            //    Skeleton skeleton = new Skeleton();
+            //    characters.Add(skeleton);
+            //}
+            Skeleton skeleton = new Skeleton("Skeleton1");
+            characters.Add(skeleton);
+
+            if (numberOfCharacters == 2)
             {
-                Skeleton skeleton = new Skeleton();
+                skeleton = new Skeleton("Skeleton2");
                 characters.Add(skeleton);
             }
+
+
         }
 
         public void AddTrueProgrammer()

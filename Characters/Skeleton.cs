@@ -8,11 +8,11 @@ namespace FinalBattle.Characters
 {
     public class Skeleton : Character
     {
-        public Skeleton()
+        public Skeleton(string name)
         {
             _maxHealth = 5;
             _currentHealth = 5;
-            _name = "SKELETON";
+            _name = name;
         }
     }
 }

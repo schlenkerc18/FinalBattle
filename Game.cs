@@ -77,8 +77,8 @@ namespace FinalBattle
             {
                 if (GetTurn(_turn) == "Heroes")
                 {
-                    // Console.WriteLine($"Bad guys left: {badGuys.characters.Count}");
-                    Console.WriteLine($"It is {goodGuys.characters[playerTurn]._name}'s turn.");
+                    // TODO: going to need to change how I index character when there is more than one hero
+                    Console.WriteLine($"It is {goodGuys.characters[0]._name}'s turn.");
 
                     // this gets menu and then allows player to choose action
                     menu.GetMenuItems(goodGuys, badGuys, goodGuys.characters[0]);                    
@@ -101,6 +101,9 @@ namespace FinalBattle
 
                 if (GetTurn(_turn) == "Monsters")
                 {
+                    // if more than one player is in a party, need to get the correct player's turn
+                    playerTurn = GetPlayerTurn(playerTurn, badGuys);
+
                     // Console.WriteLine($"Number of badGuys: {badGuys.characters.Count}");
                     Console.WriteLine($"It is {badGuys.characters[playerTurn]._name}'s turn.");
 
@@ -121,10 +124,20 @@ namespace FinalBattle
                     Console.WriteLine();
                     Thread.Sleep(500);     
                 }
+
+                playerTurn++;
             }
 
             // reset round
             _roundOver = false;
+        }
+
+        public int GetPlayerTurn(int playerTurn, Party friends)
+        {
+            int turn = 0;
+            //if (playerTurn % 2 == 0) turn = 0;
+            if (playerTurn % 2 == 1 & friends.characters.Count > 1) turn = 1;
+            return turn;
         }
 
         /// <summary>
