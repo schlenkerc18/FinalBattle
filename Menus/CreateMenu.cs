@@ -75,7 +75,7 @@ namespace FinalBattle.Menus
                 }
                 Console.WriteLine();
             }
-            catch (FormatException e)
+            catch (FormatException)
             {
                 Console.WriteLine();
                 Console.WriteLine("That is not a recognized action. Defaulting to attack.");

@@ -109,7 +109,7 @@ namespace FinalBattle
 
                     // TODO: need to iterate through characters, only the first character in a party is ever taking a turn right now
                     // this gets menu and then allows player to choose action
-                    menu.GetMenuItems(badGuys, goodGuys, badGuys.characters[0]);                   
+                    menu.GetMenuItems(badGuys, goodGuys, badGuys.characters[playerTurn]);                   
 
                     // increment turn before checking if round is over
                     _turn++;
