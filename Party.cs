@@ -24,11 +24,7 @@ namespace FinalBattle
 
             FillItemInventory(itemsToAdd);
 
-            if (name == "Heroes")
-            {
-                AddTrueProgrammer();
-                AddCharacters(charactersToAdd - 1);
-            }
+            if (name == "Heroes") AddTrueProgrammer();
 
             else if (name == "The Uncoded One")
             {
@@ -36,7 +32,7 @@ namespace FinalBattle
                 characters.Add(uncodedOne);
             }
 
-            else AddCharacters(charactersToAdd);
+            else AddSkeletons(charactersToAdd);
         }
 
         public void FillItemInventory(int itemsToAdd)
@@ -47,24 +43,13 @@ namespace FinalBattle
             }
         }
 
-        public void AddCharacters(int numberOfCharacters)
+        public void AddSkeletons(int numberOfCharacters)
         {
-            //currently just adding skeletons
-            //for (int i = 0; i < numberOfCharacters; i++)
-            //{
-            //    Skeleton skeleton = new Skeleton();
-            //    characters.Add(skeleton);
-            //}
-            Skeleton skeleton = new Skeleton("Skeleton1");
-            characters.Add(skeleton);
-
-            if (numberOfCharacters == 2)
+            for (int i = 0; i < numberOfCharacters; i++)
             {
-                skeleton = new Skeleton("Skeleton2");
+                Skeleton skeleton = new Skeleton($"SKELETON {i+1}");
                 characters.Add(skeleton);
             }
-
-
         }
 
         public void AddTrueProgrammer()
