@@ -16,8 +16,6 @@ namespace FinalBattle.Items
         {
             _itemType = itemType;
             _itemCount = itemCount;
-        }
-
-        
+        }  
     }
 }

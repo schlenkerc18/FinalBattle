@@ -9,8 +9,11 @@ public enum ActionType
 {
     DoNothing,
     Attack,
-    Punch,
-    Unraveling,
-    BoneCrunch,
+    Punch, // TrueProgrammer standard attack
+    Unraveling, // Uncoded one standard attack
+    BoneCrunch, // Skeleton standard attack
+    Slash, // sword based attack
+    Stab, // dagger based attack
+    Equip,
     UsePotion
 }

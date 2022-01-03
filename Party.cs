@@ -15,6 +15,7 @@ namespace FinalBattle
         public string _name { private set; get; }
         public PlayerType _playerType { private set; get; }
         public List<ItemType> _items;
+        public List<Gear> _gear;
 
         public Party(PlayerType playerType, string name, int charactersToAdd, int itemsToAdd)
         {

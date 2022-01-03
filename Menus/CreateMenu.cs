@@ -53,13 +53,8 @@ namespace FinalBattle.Menus
         public IAction GetAction(Party friends, List<MenuItem> options, PlayerType playerType, Character character)
         {
             // if computer, automatically attack
-            if (playerType == PlayerType.Computer)
-            {
-                //IAction actionToReturn = 
-                return GetComputerAction(friends, character);
-            }
+            if (playerType == PlayerType.Computer) return GetComputerAction(friends, character);
 
-            
             Console.WriteLine("Choose an action: ");
             for (int i = 0; i < options.Count; i++)
                 Console.WriteLine(options[i]);
@@ -104,7 +99,7 @@ namespace FinalBattle.Menus
         {
             // if character health is below 50%, then they should use a potion if they have a potion available 25% of the time
             if (character._currentHealth <= character._maxHealth / 2)
-            {
+            { 
                 Random rand = new Random();
                 if (rand.Next(0, 4) == 0  & friends._items.Count != 0) return new UsePotionAction();
                 else return new AttackAction();
