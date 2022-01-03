@@ -17,13 +17,15 @@ namespace FinalBattle
         public List<ItemType> _items;
         public List<Gear> _gear;
 
-        public Party(PlayerType playerType, string name, int charactersToAdd, int itemsToAdd)
+        public Party(PlayerType playerType, string name, int charactersToAdd, int itemsToAdd, int gearToAdd)
         {
             _name = name;
             _playerType = playerType;
             _items = new List<ItemType>();
+            _gear = new List<Gear>();
 
             FillItemInventory(itemsToAdd);
+            FillGearInventory(name, gearToAdd);
 
             if (name == "Heroes") AddTrueProgrammer();
 
@@ -42,6 +44,21 @@ namespace FinalBattle
             {
                 _items.Add(ItemType.Potion);
             }
+        }
+
+        public void FillGearInventory(string name, int gearToAdd)
+        {
+            // only skeletons need gear right now
+
+            if (name == "Monsters")
+            {
+                for (int i = 0; i < gearToAdd; i++)
+                {
+                    Gear gear = new Gear(GearType.Dagger);
+                    _gear.Add(gear);
+                }
+            }
+            
         }
 
         public void AddSkeletons(int numberOfCharacters)

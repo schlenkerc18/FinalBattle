@@ -32,8 +32,8 @@ namespace FinalBattle
             _heroes = heroes;
             _monsters = monsters;
 
-            goodGuys = new Party(_heroes, "Heroes", 1, 3);
-            badGuys = new Party(_monsters, "Monsters", 1, 1);
+            goodGuys = new Party(_heroes, "Heroes", 1, 3, 1);
+            badGuys = new Party(_monsters, "Monsters", 1, 1, 1);
         }
 
         /// <summary>
@@ -51,7 +51,7 @@ namespace FinalBattle
                     Console.WriteLine("You have advanced to Round 2!");
                     Console.WriteLine();
 
-                    badGuys = new Party(_monsters, "Monsters", 2, 1);
+                    badGuys = new Party(_monsters, "Monsters", 2, 1, 2);
                 }
 
                 if (_round == 3)
@@ -60,7 +60,7 @@ namespace FinalBattle
                     Console.WriteLine("You have advanced to the Final Round! Get ready to fight the Uncoded One!");
                     Console.WriteLine();
 
-                    badGuys = new Party(_monsters, "The Uncoded One", 1, 1);
+                    badGuys = new Party(_monsters, "The Uncoded One", 1, 1, 0);
                 }
 
                 Round(_round, badGuys);

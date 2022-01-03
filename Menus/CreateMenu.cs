@@ -14,13 +14,13 @@ namespace FinalBattle.Menus
             List<MenuItem> options;
             IAction action;
 
-            options = GetMenu(friends._name);
+            options = GetMenu(friends, friends._name);
             action = GetAction(friends, options, friends._playerType, character);
 
             action.DecidePlayerAction(friends, enemies, options[0].action, friends._playerType, character);
         }
 
-        public List<MenuItem> GetMenu(string name)
+        public List<MenuItem> GetMenu(Party friends, string name)
         {
             List<MenuItem> options = new List<MenuItem>();
 
@@ -40,12 +40,18 @@ namespace FinalBattle.Menus
                 options.Add(menuItem);
             }
             
-             
+            // everybody has option to use potion or do nothing
             MenuItem item = new MenuItem("2 - Use Potion", ActionType.UsePotion);
             options.Add(item);
             MenuItem potion = new MenuItem("3 - Do Nothing", ActionType.DoNothing);
             options.Add(potion);
-            
+
+            // only add option to equip weapon if they have weapon in their gear inventory
+            if (friends._gear.Count != 0)
+            {
+                MenuItem equip = new MenuItem("4 - Equip Weapon", ActionType.Equip);
+                options.Add(equip);
+            }
 
             return options;
         }
@@ -83,7 +89,7 @@ namespace FinalBattle.Menus
             }
             finally
             {
-                if (choice > 3)
+                if (choice > 4)
                 {
                     Console.WriteLine("You did not choose a number from the list of provided actions. Defaulting to attack.");
                     choice = 1;
@@ -92,7 +98,8 @@ namespace FinalBattle.Menus
 
             if (choice == 1) return new AttackAction();
             else if (choice == 2) return new UsePotionAction();
-            else return new DoNothingAction();
+            else if (choice == 3) return new DoNothingAction();
+            else return new EquipAction();
         }
 
         public IAction GetComputerAction(Party friends, Character character)
