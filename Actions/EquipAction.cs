@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FinalBattle.Enums;
+using FinalBattle.Items;
 
 namespace FinalBattle.Actions
 {
@@ -32,10 +34,22 @@ namespace FinalBattle.Actions
 
             int choice = Convert.ToInt32(Console.ReadLine());
 
-            // attaching gear and subtracting one for correct index
-            equippingCharacter._gear = friends._gear[choice - 1];
-            // removing the item from the gear inventory after it has been attached
-            friends._gear.RemoveAt(choice - 1);
+            if (equippingCharacter.IsCharacterEquipped())
+            {
+                // add character's gear to the party first, then remove gear from character
+                friends._gear.Add(equippingCharacter._gear);
+                equippingCharacter._gear = new Gear(GearType.Nothing);
+
+                // then add the gear that the character chose to equip, and remove that gear from the party's gear inventory
+                equippingCharacter._gear = friends._gear[choice - 1];
+                friends._gear.RemoveAt(choice - 1);
+            }
+            else
+            {
+                equippingCharacter._gear = friends._gear[choice - 1];
+                // removing the item from the gear inventory after it has been attached
+                friends._gear.RemoveAt(choice - 1);
+            }  
         }
     }
 }
