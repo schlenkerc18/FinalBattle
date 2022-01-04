@@ -54,6 +54,8 @@ namespace FinalBattle.Actions
             {
                 ActionType.BoneCrunch => random.Next(2),
                 ActionType.Unraveling => random.Next(3),
+                ActionType.Slash => 2,
+                ActionType.Stab => 1,
                 ActionType.Punch => 1
             };
 

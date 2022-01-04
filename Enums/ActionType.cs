@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 public enum ActionType
 {
     DoNothing,
-    Attack,
     Punch, // TrueProgrammer standard attack
     Unraveling, // Uncoded one standard attack
     BoneCrunch, // Skeleton standard attack

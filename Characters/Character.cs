@@ -17,10 +17,6 @@ namespace FinalBattle
 
         public Gear _gear { set; get; }
 
-        public bool IsCharacterEquipped()
-        {
-            return _gear._gearType == GearType.Nothing;
-        }
-
+        public bool IsCharacterEquipped() => _gear._gearType != GearType.Nothing;
     }  
 }
