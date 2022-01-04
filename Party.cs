@@ -17,7 +17,7 @@ namespace FinalBattle
         public List<ItemType> _items;
         public List<Gear> _gear;
 
-        public Party(PlayerType playerType, string name, int charactersToAdd, int itemsToAdd, int gearToAdd)
+        public Party(PlayerType playerType, string name, int charactersToAdd, int itemsToAdd, int gearToAdd, GearType gearType)
         {
             _name = name;
             _playerType = playerType;
@@ -27,7 +27,7 @@ namespace FinalBattle
             FillItemInventory(itemsToAdd);
             FillGearInventory(name, gearToAdd);
 
-            if (name == "Heroes") AddTrueProgrammer();
+            if (name == "Heroes") AddTrueProgrammer(gearType);
 
             else if (name == "The Uncoded One")
             {
@@ -35,7 +35,7 @@ namespace FinalBattle
                 characters.Add(uncodedOne);
             }
 
-            else AddSkeletons(charactersToAdd);
+            else AddSkeletons(charactersToAdd, gearType);
         }
 
         public void FillItemInventory(int itemsToAdd)
@@ -61,20 +61,20 @@ namespace FinalBattle
             
         }
 
-        public void AddSkeletons(int numberOfCharacters)
+        public void AddSkeletons(int numberOfCharacters, GearType gearType)
         {
             for (int i = 0; i < numberOfCharacters; i++)
             {
-                Skeleton skeleton = new Skeleton($"SKELETON {i+1}");
+                Skeleton skeleton = new Skeleton($"SKELETON {i+1}", gearType);
                 characters.Add(skeleton);
             }
         }
 
-        public void AddTrueProgrammer()
+        public void AddTrueProgrammer(GearType gearType)
         {
             Console.Write("What name do you want to use for your character?: ");
             string name = Console.ReadLine();
-            TrueProgrammer trueProgrammer = new TrueProgrammer(name);
+            TrueProgrammer trueProgrammer = new TrueProgrammer(name, gearType);
             characters.Add(trueProgrammer);
         }
     }

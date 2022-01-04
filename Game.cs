@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Threading;
 using FinalBattle.Menus;
 using FinalBattle;
+using FinalBattle.Enums;
 
 namespace FinalBattle
 {
@@ -32,8 +33,8 @@ namespace FinalBattle
             _heroes = heroes;
             _monsters = monsters;
 
-            goodGuys = new Party(_heroes, "Heroes", 1, 3, 0);
-            badGuys = new Party(_monsters, "Monsters", 1, 1, 1);
+            goodGuys = new Party(_heroes, "Heroes", 1, 3, 1, GearType.Sword);
+            badGuys = new Party(_monsters, "Monsters", 1, 1, 0, GearType.Dagger);
         }
 
         /// <summary>
@@ -51,7 +52,7 @@ namespace FinalBattle
                     Console.WriteLine("You have advanced to Round 2!");
                     Console.WriteLine();
 
-                    badGuys = new Party(_monsters, "Monsters", 2, 1, 2);
+                    badGuys = new Party(_monsters, "Monsters", 2, 1, 2, GearType.Nothing);
                 }
 
                 if (_round == 3)
@@ -60,7 +61,7 @@ namespace FinalBattle
                     Console.WriteLine("You have advanced to the Final Round! Get ready to fight the Uncoded One!");
                     Console.WriteLine();
 
-                    badGuys = new Party(_monsters, "The Uncoded One", 1, 1, 0);
+                    badGuys = new Party(_monsters, "The Uncoded One", 1, 1, 0, GearType.Nothing);
                 }
 
                 Round(_round, badGuys);

@@ -10,12 +10,12 @@ namespace FinalBattle.Characters
 {
     public class Skeleton : Character
     {
-        public Skeleton(string name)
+        public Skeleton(string name, GearType gearType)
         {
             _maxHealth = 5;
             _currentHealth = 5;
             _name = name;
-            _gear = new Gear(GearType.Nothing);
+            _gear = new Gear(gearType);
         }
     }
 }

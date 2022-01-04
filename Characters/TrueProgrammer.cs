@@ -10,7 +10,7 @@ namespace FinalBattle.Characters
 {
     public class TrueProgrammer : Character
     {
-        public TrueProgrammer(string name)
+        public TrueProgrammer(string name, GearType gearType)
         {
             _maxHealth = 25;
             _currentHealth = 25;
