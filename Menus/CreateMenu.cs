@@ -128,12 +128,21 @@ namespace FinalBattle.Menus
 
         public (IAction, ActionType) GetComputerAction(Party friends, List<MenuItem> options, Character character)
         {
+            // TODO: need to allow computer to choose special attack when they have gear equipped
+
+            Random rand = new Random();
+
             // if character health is below 50%, then they should use a potion if they have a potion available 25% of the time
             if (character._currentHealth <= character._maxHealth / 2)
-            { 
-                Random rand = new Random();
+            {
                 if (rand.Next(0, 4) == 0  & friends._items.Count != 0) return (new UsePotionAction(), ActionType.UsePotion);
                 else return (new AttackAction(), options[0].action);
+            }
+
+            // character should be equipping gear 50% when they have not used a potion
+            if (!character.IsCharacterEquipped() & character._name.Contains("SKELETON"))
+            {
+                if (rand.Next(0,2) == 0) return (new EquipAction(), ActionType.Equip);
             }
 
             // return attack action if computer health is above 50%

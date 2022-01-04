@@ -12,7 +12,7 @@ namespace FinalBattle.Actions
     {
         public void ComputerAction(Party friends, Party enemies, ActionType action, Character equipingCharacter)
         {
-            Equip(friends, action, equipingCharacter);
+            ComputerEquip(friends, equipingCharacter);
         }
 
         public void HumanAction(Party friends, Party enemies, ActionType action, Character equipingCharacter)
@@ -23,6 +23,17 @@ namespace FinalBattle.Actions
         public void Equip(Party friends, ActionType action, Character equipingCharacter)
         {
             ChooseGearToEquip(friends, equipingCharacter);
+        }
+
+        public void ComputerEquip(Party friends, Character equippingCharacter)
+        {
+            Console.WriteLine($"{equippingCharacter._name} equipped the {friends._gear[0]._gearType}");
+
+            // right now, computer will only choose to equip when they do not have gear equipped, auto equipping first item in gear inventory
+            equippingCharacter._gear = friends._gear[0];
+            friends._gear.RemoveAt(0);
+
+
         }
 
         public void ChooseGearToEquip(Party friends, Character equippingCharacter)
@@ -47,6 +58,7 @@ namespace FinalBattle.Actions
             else
             {
                 equippingCharacter._gear = friends._gear[choice - 1];
+
                 // removing the item from the gear inventory after it has been attached
                 friends._gear.RemoveAt(choice - 1);
             }  
