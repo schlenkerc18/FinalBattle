@@ -26,21 +26,14 @@ namespace FinalBattle.Menus
         {
             List<MenuItem> options = new List<MenuItem>();
 
-            if (name == "Heroes")
+            MenuItem menuItem = name switch
             {
-                MenuItem menuItem = new MenuItem("1 - Punch (Standard Attack)", ActionType.Punch);
-                options.Add(menuItem);
-            }
-            else if (name == "Monsters")
-            {
-                MenuItem menuItem = new MenuItem("1 - Bone Crunch (Standard Attack)", ActionType.BoneCrunch);
-                options.Add(menuItem);
-            }
-            else
-            {
-                MenuItem menuItem = new MenuItem("1 - Unraveling (Standard Attack)", ActionType.Unraveling);
-                options.Add(menuItem);
-            }
+                "Heroes" => new MenuItem("1 - Punch (Standard Attack)", ActionType.Punch),
+                "Monsters" => new MenuItem("1 - Bone Crunch (Standard Attack)", ActionType.BoneCrunch),
+                "The Uncoded One" => new MenuItem("1 - Unraveling (Standard Attack)", ActionType.Unraveling)
+            };
+
+            options.Add(menuItem);
 
             // using this variable to print the correct option number in front of the option, starting at 2 because every character will always have at least 1 option
             int optionNumber = 2;
@@ -48,18 +41,13 @@ namespace FinalBattle.Menus
             // add option for character to use a special attack based on what gear they have equipped
             if (character.IsCharacterEquipped())
             {
-                if (character._gear._gearType == GearType.Dagger)
+                MenuItem specialAttack = character._gear._gearType switch
                 {
-                    MenuItem stab = new MenuItem($"{optionNumber} - Stab", ActionType.Stab);
-                    options.Add(stab);
-                }
+                    GearType.Dagger => new MenuItem($"{optionNumber} - Stab", ActionType.Stab),
+                    GearType.Sword => new MenuItem($"{optionNumber} - Slash", ActionType.Slash)
+                };
 
-                if (character._gear._gearType == GearType.Sword)
-                {
-                    MenuItem slash = new MenuItem($"{optionNumber} - Slash", ActionType.Slash);
-                    options.Add(slash);
-                }
-
+                options.Add(specialAttack);
                 optionNumber++;
             }
 
@@ -78,7 +66,6 @@ namespace FinalBattle.Menus
             {
                 MenuItem equip = new MenuItem($"{optionNumber} - Equip Weapon", ActionType.Equip);
                 options.Add(equip);
-                optionNumber++;
             }
 
             return options;

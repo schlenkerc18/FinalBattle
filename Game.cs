@@ -79,7 +79,6 @@ namespace FinalBattle
                 {
                     // TODO: going to need to change how I index character when there is more than one hero
                     Console.WriteLine($"It is {goodGuys.characters[0]._name}'s turn.");
-                    Console.WriteLine($"True programmer gear: {goodGuys.characters[0]._gear._gearType}");
 
                     // this gets menu and then allows player to choose action
                     menu.GetMenuItems(goodGuys, badGuys, goodGuys.characters[0]);                    
@@ -107,7 +106,6 @@ namespace FinalBattle
 
                     // Console.WriteLine($"Number of badGuys: {badGuys.characters.Count}");
                     Console.WriteLine($"It is {badGuys.characters[playerTurn]._name}'s turn.");
-                    Console.WriteLine($"bad guy gear: {badGuys.characters[playerTurn]._gear._gearType}");
 
                     // TODO: need to iterate through characters, only the first character in a party is ever taking a turn right now
                     // this gets menu and then allows player to choose action
