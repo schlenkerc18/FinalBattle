@@ -44,6 +44,7 @@ namespace FinalBattle.Actions
             }
 
             int choice = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine();
 
             if (equippingCharacter.IsCharacterEquipped())
             {
@@ -61,6 +62,8 @@ namespace FinalBattle.Actions
 
                 // removing the item from the gear inventory after it has been attached
                 friends._gear.RemoveAt(choice - 1);
+
+                Console.WriteLine($"{equippingCharacter._name} equipped the {equippingCharacter._gear._gearType}.");
             }  
         }
     }
