@@ -30,7 +30,8 @@ namespace FinalBattle.Menus
             {
                 "Heroes" => new MenuItem("1 - Punch (Standard Attack)", ActionType.Punch),
                 "Monsters" => new MenuItem("1 - Bone Crunch (Standard Attack)", ActionType.BoneCrunch),
-                "The Uncoded One" => new MenuItem("1 - Unraveling (Standard Attack)", ActionType.Unraveling)
+                "The Uncoded One" => new MenuItem("1 - Unraveling (Standard Attack)", ActionType.Unraveling),
+                "Stone Amaroks" => new MenuItem("1 - Bite (Standard Attack)", ActionType.Bite)
             };
 
             options.Add(menuItem);
@@ -143,8 +144,19 @@ namespace FinalBattle.Menus
                     return (new EquipAction(), ActionType.Equip);
 
             // if character has gear, then they should special attack
-            if (character.IsCharacterEquipped() & character._name.Contains("SKELETON")) 
-                return (new AttackAction(), ActionType.Stab);
+            if (character.IsCharacterEquipped() & (character._characterType == CharacterType.Skeleton || character._characterType == CharacterType.TrueProgrammer || character._characterType == CharacterType.HeroCompanion))
+            {
+                switch (character._characterType)
+                {
+                    case CharacterType.Skeleton:
+                        return (new AttackAction(), ActionType.Stab);
+                    case CharacterType.HeroCompanion:
+                        return (new AttackAction(), ActionType.QuickShot);
+                    case CharacterType.TrueProgrammer:
+                        return (new AttackAction(), ActionType.Slash);
+                }
+            }
+                
 
             // return attack action if computer health is above 50%
             return (new AttackAction(), options[0].action);

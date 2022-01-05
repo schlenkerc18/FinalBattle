@@ -13,7 +13,6 @@ namespace FinalBattle.Actions
 
         public void HumanAction(Party friends, Party enemies, ActionType action, Character character)
         {
-            //Console.WriteLine(character._name);
             UsePotion(friends, ItemType.Potion, character);
         }
 

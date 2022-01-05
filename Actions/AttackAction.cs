@@ -56,6 +56,7 @@ namespace FinalBattle.Actions
 
         public void DealHitDamage(Party friends, Character attackingCharacter, Party enemies, ActionType action, int characterPosition)
         {
+            
             int hitDamage = 0;
             Random random = new Random();
 
@@ -66,10 +67,16 @@ namespace FinalBattle.Actions
                 ActionType.Slash => 2,
                 ActionType.Stab => 1,
                 ActionType.Punch => 1,
-                ActionType.QuickShot => 3
+                ActionType.QuickShot => 3,
+                ActionType.Bite => 1
             };
 
-            hitDamage = AttemptingAttack(action, hitDamage);
+            // create attack modifier
+            AttackModifier attackMod = new AttackModifier(enemies.characters[characterPosition], hitDamage);
+
+            // after attack mod, attempt attack (attack might miss)
+            hitDamage = AttemptingAttack(action, attackMod._damage);
+
 
             if (enemies.characters[characterPosition]._currentHealth - hitDamage <= 0)
             {

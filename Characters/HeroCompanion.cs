@@ -16,6 +16,7 @@ namespace FinalBattle.Characters
             _currentHealth = 10;
             _maxHealth = 10;
             _gear = new Gear(gearType);
+            _characterType = CharacterType.HeroCompanion;
         }
     }
 }

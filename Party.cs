@@ -35,6 +35,14 @@ namespace FinalBattle
                 characters.Add(uncodedOne);
             }
 
+            else if (name == "Stone Amaroks")
+            {
+                StoneAmarok stoney = new StoneAmarok(gearType);
+                StoneAmarok squiggy = new StoneAmarok(gearType);
+                characters.Add(stoney);
+                characters.Add(squiggy);
+            }
+
             else AddSkeletons(charactersToAdd, gearType);
         }
 

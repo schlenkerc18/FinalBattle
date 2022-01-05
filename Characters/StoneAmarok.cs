@@ -8,15 +8,15 @@ using FinalBattle.Items;
 
 namespace FinalBattle.Characters
 {
-    public class Skeleton : Character
+    public class StoneAmarok : Character
     {
-        public Skeleton(string name, GearType gearType)
+        public StoneAmarok(GearType gearType)
         {
-            _maxHealth = 5;
-            _currentHealth = 5;
-            _name = name;
+            _name = "Stone Amarok";
+            _currentHealth = 4;
+            _maxHealth = 4;
             _gear = new Gear(gearType);
-            _characterType = CharacterType.Skeleton;
+            _characterType = CharacterType.StoneAmarok;
         }
     }
 }

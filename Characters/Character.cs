@@ -11,11 +11,13 @@ namespace FinalBattle
 {
     public class Character
     {
-        public string _name { set; get; }
-        public int _maxHealth { set; get; }
-        public int _currentHealth { set; get; }
+        public string _name { get; set; }
+        public int _maxHealth { get; set; }
+        public int _currentHealth { get; set; }
 
-        public Gear _gear { set; get; }
+        public Gear _gear { get; set; }
+
+        public CharacterType _characterType { get; set; }
 
         public bool IsCharacterEquipped() => _gear._gearType != GearType.Nothing;
     }  

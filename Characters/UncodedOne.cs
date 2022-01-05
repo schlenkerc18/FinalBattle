@@ -16,6 +16,7 @@ namespace FinalBattle.Characters
             _currentHealth = 15;
             _name = "The Uncoded One";
             _gear = new Gear(GearType.Nothing);
+            _characterType = CharacterType.UncodedOne;
         }
     }
 }

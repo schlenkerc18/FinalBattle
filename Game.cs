@@ -58,6 +58,15 @@ namespace FinalBattle
 
                 if (_round == 3)
                 {
+                    // third round consists of 2 stone amaroks
+                    Console.WriteLine("You have advanced to Round 3");
+                    Console.WriteLine();
+
+                    badGuys = new Party(_monsters, "Stone Amaroks", 2, 1, 0, GearType.Nothing);
+                }
+
+                if (_round == 4)
+                {
                     // third round consists of the Uncoded One
                     Console.WriteLine("You have advanced to the Final Round! Get ready to fight the Uncoded One!");
                     Console.WriteLine();
@@ -180,7 +189,7 @@ namespace FinalBattle
                     _gameOver = true;
                     Console.WriteLine("The Heroes have lost and the Uncoded One's forces have prevailed.");
                 }
-                else if (badGuys.characters.Count == 0 & round == 3)
+                else if (badGuys.characters.Count == 0 & round == 4)
                 {
                     _gameOver = true;
                     Console.WriteLine("The Heroes won! The Uncoded One has been defeated!");

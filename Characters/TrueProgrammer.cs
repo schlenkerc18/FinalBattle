@@ -16,6 +16,7 @@ namespace FinalBattle.Characters
             _currentHealth = 25;
             _name = name;
             _gear = new Gear(GearType.Sword);
+            _characterType = CharacterType.TrueProgrammer;
         }
     }
 }

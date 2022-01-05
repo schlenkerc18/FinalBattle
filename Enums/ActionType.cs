@@ -15,5 +15,6 @@ public enum ActionType
     Stab, // dagger based attack
     Equip,
     UsePotion,
-    QuickShot
+    QuickShot,
+    Bite
 }
