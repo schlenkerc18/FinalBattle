@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FinalBattle.Items;
+using FinalBattle.Enums;
 
 namespace FinalBattle.Actions
 {
@@ -23,13 +25,20 @@ namespace FinalBattle.Actions
         {
             int characterPosition = ChooseCharacterToAttack(friends, enemies);
             Console.WriteLine($"{attackingCharacter._name} used {action} on {enemies.characters[characterPosition]._name}.");
-            DealHitDamage(attackingCharacter, enemies, action, characterPosition);
+            DealHitDamage(friends, attackingCharacter, enemies, action, characterPosition);
         }
 
         public int ChooseCharacterToAttack(Party friends, Party enemies)
         {
             // if there is only one enemy character, just return 0 to save tie
             if (enemies.characters.Count == 1) return 0;
+
+            // computer chooses random player to attack
+            if (friends._playerType == PlayerType.Computer)
+            {
+                Random random = new Random();
+                return random.Next(0, enemies.characters.Count);
+            }
 
             Console.WriteLine("Choose an enemy to attack");
 
@@ -45,7 +54,7 @@ namespace FinalBattle.Actions
 
         }
 
-        public void DealHitDamage(Character attackingCharacter, Party enemies, ActionType action, int characterPosition)
+        public void DealHitDamage(Party friends, Character attackingCharacter, Party enemies, ActionType action, int characterPosition)
         {
             int hitDamage = 0;
             Random random = new Random();
@@ -56,8 +65,11 @@ namespace FinalBattle.Actions
                 ActionType.Unraveling => random.Next(3),
                 ActionType.Slash => 2,
                 ActionType.Stab => 1,
-                ActionType.Punch => 1
+                ActionType.Punch => 1,
+                ActionType.QuickShot => 3
             };
+
+            hitDamage = AttemptingAttack(action, hitDamage);
 
             if (enemies.characters[characterPosition]._currentHealth - hitDamage <= 0)
             {
@@ -71,12 +83,33 @@ namespace FinalBattle.Actions
                 $"{enemies.characters[characterPosition]._currentHealth}/{enemies.characters[characterPosition]._maxHealth}");
 
             if (enemies.characters[characterPosition]._currentHealth == 0) 
-                RemoveCharacterFromParty(attackingCharacter, enemies, characterPosition);
+                RemoveCharacterFromParty(friends, attackingCharacter, enemies, characterPosition);
         }
 
-        public void RemoveCharacterFromParty(Character attackingCharacter, Party enemies, int characterPosition)
+        public int AttemptingAttack(ActionType action, int damage)
         {
+            Random random = new Random();
+            // right now quick shot is the only attack that has a change of missing
+
+            if (action == ActionType.QuickShot)
+            {
+                if (random.Next(0, 2) == 0)
+                {
+                    Console.WriteLine("Your shot missed!");
+                    return 0;
+                }
+                return damage;
+            }
+            else return damage;
+        }
+
+        public void RemoveCharacterFromParty(Party friends, Character attackingCharacter, Party enemies, int characterPosition)
+        {
+            // when character is killed, move their gear to the other party
+            friends._gear.Add(new Gear(enemies.characters[characterPosition]._gear._gearType));
+           
             Console.WriteLine($"{attackingCharacter._name} killed {enemies.characters[characterPosition]._name}");
+            Console.WriteLine($"You have acquired a {enemies.characters[characterPosition]._gear._gearType} from {enemies.characters[characterPosition]._name}");
             enemies.characters.Remove(enemies.characters[characterPosition]);
             Console.WriteLine();
         }

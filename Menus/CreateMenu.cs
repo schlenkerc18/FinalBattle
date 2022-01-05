@@ -44,7 +44,8 @@ namespace FinalBattle.Menus
                 MenuItem specialAttack = character._gear._gearType switch
                 {
                     GearType.Dagger => new MenuItem($"{optionNumber} - Stab", ActionType.Stab),
-                    GearType.Sword => new MenuItem($"{optionNumber} - Slash", ActionType.Slash)
+                    GearType.Sword => new MenuItem($"{optionNumber} - Slash", ActionType.Slash),
+                    GearType.Bow => new MenuItem($"{optionNumber} - Quick Shot", ActionType.QuickShot)
                 };
 
                 options.Add(specialAttack);
@@ -120,7 +121,8 @@ namespace FinalBattle.Menus
                 ActionType.Stab => new AttackAction(),
                 ActionType.UsePotion => new UsePotionAction(),
                 ActionType.DoNothing => new DoNothingAction(),
-                ActionType.Equip => new EquipAction()
+                ActionType.Equip => new EquipAction(),
+                ActionType.QuickShot => new AttackAction()
             };
 
             return (action, options[choice - 1].action);

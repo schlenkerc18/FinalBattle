@@ -76,6 +76,9 @@ namespace FinalBattle
             string name = Console.ReadLine();
             TrueProgrammer trueProgrammer = new TrueProgrammer(name, gearType);
             characters.Add(trueProgrammer);
+
+            HeroCompanion vinFletcher = new HeroCompanion("Vin Fletcher", GearType.Bow);
+            characters.Add(vinFletcher);
         }
     }
 }

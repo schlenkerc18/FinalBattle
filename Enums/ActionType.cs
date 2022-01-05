@@ -14,5 +14,6 @@ public enum ActionType
     Slash, // sword based attack
     Stab, // dagger based attack
     Equip,
-    UsePotion
+    UsePotion,
+    QuickShot
 }

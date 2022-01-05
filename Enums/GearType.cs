@@ -10,6 +10,7 @@ namespace FinalBattle.Enums
     {
         Nothing,
         Sword,
-        Dagger
+        Dagger,
+        Bow
     }
 }

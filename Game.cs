@@ -7,6 +7,7 @@ using System.Threading;
 using FinalBattle.Menus;
 using FinalBattle;
 using FinalBattle.Enums;
+using FinalBattle.Items;
 
 namespace FinalBattle
 {
@@ -76,56 +77,47 @@ namespace FinalBattle
 
             while (!_roundOver)
             {
-                if (GetTurn(_turn) == "Heroes")
-                {
-                    // TODO: going to need to change how I index character when there is more than one hero
-                    Console.WriteLine($"It is {goodGuys.characters[0]._name}'s turn.");
+                int player = GetPlayerTurn(playerTurn, goodGuys);
+                Console.WriteLine($"It is {goodGuys.characters[player]._name}'s turn.");
 
-                    // this gets menu and then allows player to choose action
-                    menu.GetMenuItems(goodGuys, badGuys, goodGuys.characters[0]);                    
+                // this gets menu and then allows player to choose action
+                menu.GetMenuItems(goodGuys, badGuys, goodGuys.characters[player]);
 
-                    // increment turn before checking if round is over
-                    _turn++;
+                // increment turn before checking if round is over
+                _turn++;
 
-                    // show round status after attack
-                    ShowRoundStatus(goodGuys, badGuys, GetTurn(_turn));
+                // show round status after attack
+                ShowRoundStatus(goodGuys, badGuys, GetTurn(_turn));
 
-                    // check if action eliminated enemy team
-                    IsRoundOver(goodGuys, badGuys);
-                    if (_roundOver) break;
+                // check if action eliminated enemy team
+                IsRoundOver(goodGuys, badGuys);
+                if (_roundOver) break;
 
-                    Console.WriteLine();
-                    Thread.Sleep(500);
-                }
+                Console.WriteLine();
+                Thread.Sleep(500);
 
-                
+                // if more than one player is in a party, need to get the correct player's turn
+                player = GetPlayerTurn(playerTurn, badGuys);
 
-                if (GetTurn(_turn) == "Monsters")
-                {
-                    // if more than one player is in a party, need to get the correct player's turn
-                    playerTurn = GetPlayerTurn(playerTurn, badGuys);
+                Console.WriteLine($"It is {badGuys.characters[player]._name}'s turn.");
 
-                    // Console.WriteLine($"Number of badGuys: {badGuys.characters.Count}");
-                    Console.WriteLine($"It is {badGuys.characters[playerTurn]._name}'s turn.");
+                // this gets menu and then allows player to choose action
+                menu.GetMenuItems(badGuys, goodGuys, badGuys.characters[player]);
 
-                    // TODO: need to iterate through characters, only the first character in a party is ever taking a turn right now
-                    // this gets menu and then allows player to choose action
-                    menu.GetMenuItems(badGuys, goodGuys, badGuys.characters[playerTurn]);                   
+                // increment turn before checking if round is over
+                _turn++;
 
-                    // increment turn before checking if round is over
-                    _turn++;
+                // show round status after attack
+                ShowRoundStatus(goodGuys, badGuys, GetTurn(_turn));
 
-                    // show round status after attack
-                    ShowRoundStatus(goodGuys, badGuys, GetTurn(_turn));
+                // check if action eliminated enemy team
+                IsRoundOver(goodGuys, badGuys);
+                if (_roundOver) break;
 
-                    // check if action eliminated enemy team
-                    IsRoundOver(goodGuys, badGuys);
-                    if (_roundOver) break;
+                Console.WriteLine();
+                Thread.Sleep(500);
 
-                    Console.WriteLine();
-                    Thread.Sleep(500);     
-                }
-
+                // increment player turn so a different character in the party takes a turn
                 playerTurn++;
             }
 
@@ -136,8 +128,8 @@ namespace FinalBattle
         public int GetPlayerTurn(int playerTurn, Party friends)
         {
             int turn = 0;
-            //if (playerTurn % 2 == 0) turn = 0;
             if (playerTurn % 2 == 1 & friends.characters.Count > 1) turn = 1;
+
             return turn;
         }
 
@@ -159,9 +151,23 @@ namespace FinalBattle
                 // if good goodGuys count is 0, then we want to see if the game is over this round
                 IsGameOver(_round);
                 _roundOver = true;
+                TransferItems(goodGuys, badGuys);
             }
 
             else _roundOver = false;
+        }
+
+        public void TransferItems(Party goodGuys, Party badGuys)
+        {
+            for (int i = 0; i < badGuys._gear.Count; i++)
+            {
+                goodGuys._gear.Add(new Gear(badGuys._gear[i]._gearType));
+            }
+
+            for (int i = 0; i < badGuys._items.Count; i++)
+            {
+                goodGuys._items.Add(badGuys._items[i]);
+            }
         }
 
         public void IsGameOver(int round)
@@ -189,13 +195,22 @@ namespace FinalBattle
             Console.WriteLine();
             Console.WriteLine("======================Battle======================");
             if (turn == "Heroes") Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine($"{goodGuys.characters[0]._name}        ( {goodGuys.characters[0]._currentHealth}/{goodGuys.characters[0]._maxHealth} )");
+
+            for (int i = 0; i < goodGuys.characters.Count; i++)
+            {
+                Console.WriteLine($"{goodGuys.characters[i]._name}        ( {goodGuys.characters[i]._currentHealth}/{goodGuys.characters[i]._maxHealth} )");
+                Console.WriteLine($"Gear Equipped: {goodGuys.characters[0]._gear._gearType}");
+            }
+            
             Console.ResetColor();
             Console.WriteLine("------------------------VS------------------------");
 
             if (turn == "Monsters") Console.ForegroundColor = ConsoleColor.Red;
             for (int i = 0; i < badGuys.characters.Count; i++)
+            {
                 Console.WriteLine($"                           {badGuys.characters[i]._name}        ( {badGuys.characters[i]._currentHealth}/{badGuys.characters[i]._maxHealth} )");
+                Console.WriteLine($"                           Gear Equipped: {badGuys.characters[i]._gear._gearType}");
+            }   
 
             Console.ResetColor();
         }
