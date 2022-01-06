@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace FinalBattle.Enums
 {
@@ -11,6 +7,8 @@ namespace FinalBattle.Enums
         Nothing,
         Sword,
         Dagger,
+
+        [Display(Name = "Vin Fletcher's Bow")]
         Bow
     }
 }
