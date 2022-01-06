@@ -171,14 +171,10 @@ namespace FinalBattle
 
         public void TransferItems(Party goodGuys, Party badGuys)
         {
-            for (int i = 0; i < badGuys._gear.Count; i++)
-            {
-                goodGuys._gear.Add(new Gear(badGuys._gear[i]._gearType));
-            }
-
             for (int i = 0; i < badGuys._items.Count; i++)
             {
                 goodGuys._items.Add(badGuys._items[i]);
+                Console.WriteLine($"You added a {badGuys._items[i]}.");
             }
         }
 

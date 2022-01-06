@@ -20,12 +20,6 @@ namespace FinalBattle
                 case CharacterType.TrueProgrammer:
                     TrueProgrammerModifier(damageType, damage);
                     break;
-                case CharacterType.Skeleton:
-                    break;
-                case CharacterType.HeroCompanion:
-                    break;
-                case CharacterType.UncodedOne:
-                    break;
                 case CharacterType.StoneAmarok:
                     StoneAmarokModifier();
                     break;
@@ -49,7 +43,7 @@ namespace FinalBattle
                 }
                 else
                 {
-                    Console.WriteLine("Object Insight decreased the Decoding damage by 2!");
+                    Console.WriteLine("Object Insight decreased the Decoding damage by 1!");
                     _damage -= 1;
                 }
 

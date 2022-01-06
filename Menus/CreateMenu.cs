@@ -140,7 +140,7 @@ namespace FinalBattle.Menus
                     return (new UsePotionAction(), ActionType.UsePotion);
 
             // character should be equipping gear 50% when they have not used a potion
-            if (!character.IsCharacterEquipped() & character._name.Contains("SKELETON") & friends._gear.Count != 0)
+            if (!character.IsCharacterEquipped() & friends._gear.Count != 0)
                 if (rand.Next(0,2) == 0) 
                     return (new EquipAction(), ActionType.Equip);
 
@@ -156,8 +156,7 @@ namespace FinalBattle.Menus
                     case CharacterType.TrueProgrammer:
                         return (new AttackAction(), ActionType.Slash);
                 }
-            }
-                
+            }   
 
             // return attack action if computer health is above 50%
             return (new AttackAction(), options[0].action);
