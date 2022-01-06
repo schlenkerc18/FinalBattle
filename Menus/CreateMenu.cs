@@ -89,6 +89,12 @@ namespace FinalBattle.Menus
             {
                 choice = Convert.ToInt32(Console.ReadLine());
 
+                while (choice > options.Count)
+                {
+                    Console.WriteLine("You did not choose a number from the list of provided actions. Defaulting to basic attack.");
+                    choice = 1;
+                }
+
                 while (options[choice - 1].action == ActionType.UsePotion & friends._items.Count == 0)
                 {
                     Console.WriteLine("You have no potions left.  Please choose another action.");
@@ -107,9 +113,9 @@ namespace FinalBattle.Menus
             }
             finally
             {
-                if (choice > options.Count())
+                if (choice > options.Count)
                 {
-                    Console.WriteLine("You did not choose a number from the list of provided actions. Defaulting to attack.");
+                    Console.WriteLine("You did not choose a number from the list of provided actions. Defaulting to basic attack.");
                     choice = 1;
                 }
             }

@@ -47,7 +47,26 @@ namespace FinalBattle.Actions
                 Console.WriteLine($"{i + 1} - {enemies.characters[i]._name}");
             }
 
-            int choice = Convert.ToInt32(Console.ReadLine());
+            // default attack
+            int choice = 1;
+
+            try
+            {
+                choice = Convert.ToInt32(Console.ReadLine());
+            }
+            catch (Exception)
+            {
+                Console.WriteLine($"That is not a valid response. Defaulting to attack {enemies.characters[0]._name}");
+            }
+            finally
+            {
+                if (choice > enemies.characters.Count)
+                {
+                    Console.WriteLine($"That is not a valid response. Defaulting to attack {enemies.characters[0]._name}");
+                    choice = 1;
+                }
+            }
+            
 
             // need to subtract one from choice because characters is 0 indexed
             return choice - 1;
