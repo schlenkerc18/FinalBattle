@@ -35,7 +35,7 @@ namespace FinalBattle
             _monsters = monsters;
 
             goodGuys = new Party(_heroes, "Heroes", 1, 3, 1, GearType.Sword);
-            badGuys = new Party(_monsters, "Monsters", 1, 1, 0, GearType.Dagger);
+            badGuys = new Party(_monsters, "Monsters", 2, 1, 0, GearType.Dagger);
         }
 
         /// <summary>
@@ -53,7 +53,7 @@ namespace FinalBattle
                     Console.WriteLine("You have advanced to Round 2!");
                     Console.WriteLine();
 
-                    badGuys = new Party(_monsters, "Monsters", 2, 1, 2, GearType.Nothing);
+                    badGuys = new Party(_monsters, "Monsters", 3, 1, 2, GearType.Nothing);
                 }
 
                 if (_round == 3)
@@ -86,6 +86,9 @@ namespace FinalBattle
 
             while (!_roundOver)
             {
+                //show round status before first attack
+                ShowRoundStatus(goodGuys, badGuys, GetTurn(_turn));
+
                 int player = GetPlayerTurn(playerTurn, goodGuys);
                 Console.WriteLine($"It is {goodGuys.characters[player]._name}'s turn.");
 
@@ -117,7 +120,7 @@ namespace FinalBattle
                 _turn++;
 
                 // show round status after attack
-                ShowRoundStatus(goodGuys, badGuys, GetTurn(_turn));
+                //ShowRoundStatus(goodGuys, badGuys, GetTurn(_turn));
 
                 // check if action eliminated enemy team
                 IsRoundOver(goodGuys, badGuys);

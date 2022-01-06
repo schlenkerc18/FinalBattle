@@ -62,21 +62,24 @@ namespace FinalBattle.Actions
 
             hitDamage = action switch
             {
-                ActionType.BoneCrunch => random.Next(2),
-                ActionType.Unraveling => random.Next(3),
+                ActionType.BoneCrunch => random.Next(0,2),
+                ActionType.Unraveling => random.Next(1,6),
                 ActionType.Slash => 2,
-                ActionType.Stab => 1,
+                ActionType.Stab => random.Next(1,3),
                 ActionType.Punch => 1,
-                ActionType.QuickShot => 3,
-                ActionType.Bite => 1
+                ActionType.QuickShot => 2,
+                ActionType.Bite => random.Next(1,3)
             };
+            // get damage type to pass to the attackModifier
+            DamageType damageType = GetDamageType(action);
 
             // create attack modifier
-            AttackModifier attackMod = new AttackModifier(enemies.characters[characterPosition], hitDamage);
+            AttackModifier attackMod = new AttackModifier(enemies.characters[characterPosition], hitDamage, damageType);
 
             // after attack mod, attempt attack (attack might miss)
             hitDamage = AttemptingAttack(action, attackMod._damage);
 
+            
 
             if (enemies.characters[characterPosition]._currentHealth - hitDamage <= 0)
             {
@@ -84,7 +87,7 @@ namespace FinalBattle.Actions
             }
             else enemies.characters[characterPosition]._currentHealth -= hitDamage;
 
-            Console.WriteLine($"The attack dealt {hitDamage} damage to {enemies.characters[characterPosition]._name}.");
+            Console.WriteLine($"The attack dealt {hitDamage} {damageType} damage to {enemies.characters[characterPosition]._name}.");
 
             Console.WriteLine($"{enemies.characters[characterPosition]._name} is now at " +
                 $"{enemies.characters[characterPosition]._currentHealth}/{enemies.characters[characterPosition]._maxHealth}");
@@ -108,6 +111,17 @@ namespace FinalBattle.Actions
                 return damage;
             }
             else return damage;
+        }
+
+        public DamageType GetDamageType(ActionType action)
+        {
+            DamageType damageType = action switch 
+            {
+                ActionType.Unraveling => DamageType.Decoding,
+                _ => DamageType.Normal
+            };
+
+            return damageType;
         }
 
         public void RemoveCharacterFromParty(Party friends, Character attackingCharacter, Party enemies, int characterPosition)

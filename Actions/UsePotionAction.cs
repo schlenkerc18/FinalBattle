@@ -36,15 +36,15 @@ namespace FinalBattle.Actions
                 switch (itemType)
                 {
                     case ItemType.Potion:
-                        if (character._currentHealth + 10 > character._maxHealth)
+                        if (character._currentHealth + 5 > character._maxHealth)
                         {
                             Console.WriteLine($"{character._name} gained {character._maxHealth - character._currentHealth} health.");
                             character._currentHealth = character._maxHealth;   
                         }
                         else
                         {
-                            character._currentHealth += 10;
-                            Console.WriteLine($"{character._name} gained 10 health.");
+                            character._currentHealth += 5;
+                            Console.WriteLine($"{character._name} gained 5 health.");
                         }
                         break;
                 }

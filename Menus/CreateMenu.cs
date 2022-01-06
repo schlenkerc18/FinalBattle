@@ -15,6 +15,7 @@ namespace FinalBattle.Menus
             List<MenuItem> options;
             IAction action;
             ActionType actionType;
+            DamageType damageType;
 
             options = GetMenu(friends, friends._name, character);
             (action, actionType) = GetAction(friends, options, friends._playerType, character);
@@ -139,7 +140,7 @@ namespace FinalBattle.Menus
                     return (new UsePotionAction(), ActionType.UsePotion);
 
             // character should be equipping gear 50% when they have not used a potion
-            if (!character.IsCharacterEquipped() & character._name.Contains("SKELETON"))
+            if (!character.IsCharacterEquipped() & character._name.Contains("SKELETON") & friends._gear.Count != 0)
                 if (rand.Next(0,2) == 0) 
                     return (new EquipAction(), ActionType.Equip);
 
